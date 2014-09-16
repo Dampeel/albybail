@@ -12,7 +12,7 @@ class Edition {
 	String		adresseBatiment
 	String		nomTotal
 	BigDecimal	total
-	
+
 	Contrat		contrat
 	
 	static belongsTo = Contrat
