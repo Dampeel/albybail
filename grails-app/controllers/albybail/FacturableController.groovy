@@ -1,6 +1,6 @@
 package albybail
 
-class LigneFactureController {
+class FacturableController {
 
     def scaffold = true
 }
