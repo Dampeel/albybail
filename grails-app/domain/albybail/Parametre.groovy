@@ -3,7 +3,7 @@ package albybail
 class Parametre {
 	
 	String	nom
-	String type
+	String	typede merde
 	String	valeur
 
     static constraints = {
