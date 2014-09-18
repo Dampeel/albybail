@@ -13,9 +13,10 @@ class Contrat {
 	Locataire	locataire
 	
 	static hasMany = [
-		locaux: 	Local,
-		revisions:	Revision,
-		lignes:		LigneFacture
+		locaux: 		Local,
+		revisions:		Revision,
+		facturables:	Facturable,
+		editions:		Edition
 	]
 	
     static constraints = {

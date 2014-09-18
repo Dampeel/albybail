@@ -1,11 +1,10 @@
 package albybail
 
-class LigneFacture {
+class Facturable {
 	
 	BigDecimal	valeur
 	String		description
 
-	Edition		edition
 	Contrat		contrat
 	
 	static belongsTo = Contrat
@@ -13,6 +12,5 @@ class LigneFacture {
     static constraints = {
 		description	blank: false, size: 3..50
 		valeur		nullable: true, min: 0.0
-		edition		nullable: true
     }
 }
