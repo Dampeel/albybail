@@ -1,12 +1,17 @@
-import java.util.Date;
-
+import securite.*
 import albybail.*
 
 class BootStrap {
 
     def init = { servletContext ->
+			
+		def adminRole = new Role(authority: 'ROLE_ADMIN').save(flush: true)
+		def userRole = new Role(authority: 'ROLE_USER').save(flush: true)
+		def testUser = new User(username: 'admin', enabled: true, password: 'admin').save(flush: true)
+		UserRole.create testUser, adminRole, true
 		
 		if (!Batiment.count()) {
+			
 			def albyloc = new Batiment(nom: "Albyloc").save(failOnError: true)
 			def touviere = new Batiment(nom: "Touvière", adresse: "Saint-Félix").save(failOnError: true)
 			

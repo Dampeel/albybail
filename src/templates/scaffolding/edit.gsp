@@ -6,20 +6,36 @@
 		<g:set var="entityName" value="\${message(code: '${domainClass.propertyName}.label', default: '${className}')}" />
 		<title><g:message code="default.edit.label" args="[entityName]" /></title>
 	</head>
+	
 	<body>
-		<a href="#edit-${domainClass.propertyName}" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
-		<div class="nav" role="navigation">
-			<ul>
-				<li><a class="home" href="\${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-				<li><g:link class="list" action="index"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
-				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
-			</ul>
+		<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed"
+						data-toggle="collapse" data-target=".navbar-collapse">
+						<span class="sr-only">Toggle navigation</span> <span
+							class="icon-bar"></span> <span class="icon-bar"></span> <span
+							class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="\${createLink(uri: '/')}">AlbyBail</a>
+				</div>
+				<div class="collapse navbar-collapse">
+					<ul class="nav navbar-nav">
+						<li><a class="home" href="\${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
+						<li><g:link class="list" action="index"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
+						<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
+					</ul>
+				</div>
+			</div>
 		</div>
-		<div id="edit-${domainClass.propertyName}" class="content scaffold-edit" role="main">
+		
+		<div class="container-fluid" role="main">
 			<h1><g:message code="default.edit.label" args="[entityName]" /></h1>
+			
 			<g:if test="\${flash.message}">
-			<div class="message" role="status">\${flash.message}</div>
+				<div class="message" role="status">\${flash.message}</div>
 			</g:if>
+			
 			<g:hasErrors bean="\${${propertyName}}">
 			<ul class="errors" role="alert">
 				<g:eachError bean="\${${propertyName}}" var="error">
@@ -27,13 +43,18 @@
 				</g:eachError>
 			</ul>
 			</g:hasErrors>
-			<g:form url="[resource:${propertyName}, action:'update']" method="PUT" <%= multiPart ? ' enctype="multipart/form-data"' : '' %>>
-				<g:hiddenField name="version" value="\${${propertyName}?.version}" />
-				<fieldset class="form">
+			
+			<g:form class="form-horizontal" url="[resource:${propertyName}, action:'update']" method="PUT" <%= multiPart ? ' enctype="multipart/form-data"' : '' %> role="form">
+				<fieldset>
+					<g:hiddenField name="version" value="\${${propertyName}?.version}" />
+					
 					<g:render template="form"/>
-				</fieldset>
-				<fieldset class="buttons">
-					<g:actionSubmit class="save" action="update" value="\${message(code: 'default.button.update.label', default: 'Update')}" />
+					
+					<div class="form-group">
+						<div class="col-sm-offset-2 col-sm-10">
+					  		<g:actionSubmit class="btn btn-default save" action="update" value="\${message(code: 'default.button.update.label', default: 'Update')}" />
+						</div>
+					</div>
 				</fieldset>
 			</g:form>
 		</div>

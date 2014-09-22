@@ -6,6 +6,8 @@
 // to create separate JavaScript files as needed.
 //
 //= require jquery
+//= require bootstrap
+//= require bootstrap-datepicker
 //= require_tree .
 //= require_self
 
@@ -18,3 +20,12 @@ if (typeof jQuery !== 'undefined') {
 		});
 	})(jQuery);
 }
+
+/**
+ * Outils
+ */
+
+$(document).ready(function() {
+	$(".datepicker").datepicker({
+	});
+});
