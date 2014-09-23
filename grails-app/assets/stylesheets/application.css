@@ -32,6 +32,8 @@ th.desc a {
 	background-image: url(../images/skin/sorted_desc.gif);
 }
 
+/* Affichage show */
+
 .property-list .fieldcontain {
 	list-style: none;
 	overflow: hidden;
@@ -54,6 +56,15 @@ th.desc a {
 .fieldcontain .property-value {
 	display: block;
 	margin-left: 27%;
+}
+
+/* Divers */
+
+label {
+	color: #666666;
+}
+
+value {
 }
 
 /* CREATE/EDIT FORMS AND SHOW PAGES
