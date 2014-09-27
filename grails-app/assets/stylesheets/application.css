@@ -32,30 +32,47 @@ th.desc a {
 	background-image: url(../images/skin/sorted_desc.gif);
 }
 
-/* Affichage show */
-
-.property-list .fieldcontain {
-	list-style: none;
-	overflow: hidden;
+.page-content {
+	margin-top: 60px;
 }
 
-.fieldcontain {
+/* Affichage form */
+
+.form-label {
+	color: #666666;
+	text-align: left;
+}
+
+.form-row {
 	margin-top: 1em;
 }
 
-.fieldcontain .property-label {
+/* Affichage show */
+
+.show-label {
 	color: #666666;
+	text-align: left;
+	margin-top: 1em;
+}
+
+.show-label {
+	color: #666666;
+	text-align: left;
+	margin-top: 1em;
+}
+
+.show-value {
+	text-align: left;
+	margin-top: 1em;
+}
+
+.h1-buttons {
+	line-height: 42px;
+	margin-bottom: 10.5px;
+	margin-left: 0px;
+	margin-right: 0px;
+	margin-top: 19px;
 	text-align: right;
-	width: 25%;
-}
-
-.fieldcontain .property-label {
-	float: left;
-}
-
-.fieldcontain .property-value {
-	display: block;
-	margin-left: 27%;
 }
 
 /* Divers */
