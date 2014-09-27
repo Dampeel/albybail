@@ -15,49 +15,47 @@
 		<asset:stylesheet src="application.css"/>
 		<g:layoutHead/>
 	</head>
+	
 	<body>
-		<div id="wrapper">
-
 	        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-	            <!-- Brand and toggle get grouped for better mobile display -->
-	            <div class="navbar-header">
-	                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-	                    <span class="sr-only">Menu</span>
-	                    <span class="icon-bar"></span>
-	                    <span class="icon-bar"></span>
-	                    <span class="icon-bar"></span>
-	                </button>
-	                <g:link class="navbar-brand" controller="accueil">AlbyBail</g:link>
-	            </div>
-	            
-	            <div class="collapse navbar-collapse navbar-ex1-collapse">
-	                <ul class="nav navbar-nav side-nav">
-	                    <li>
-	                        <g:link class="list" controller="contrat">Contrats</g:link>
-	                    </li>
-	                    <li>
-	                        <g:link class="list" controller="edition">Edition des factures</g:link>
-	                    </li>
-	                    <li>
-                            <g:link class="list" controller="batiment">Bâtiments</g:link>
-                        </li>
-                        <li>
-                            <g:link class="list" controller="local">Locaux</g:link>
-                        </li>
-                        <li>
-                            <g:link class="list" controller="locataire">Locataires</g:link>
-                        </li>
-                        <li>
-                            <g:link class="list" controller="indice">Indices INSEE</g:link>
-                        </li>
-	                </ul>
-	            </div> <!-- /.navbar-collapse -->
+	            <div class="container">
+		            <div class="navbar-header">
+		                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+		                    <span class="sr-only">Menu</span>
+		                    <span class="icon-bar"></span>
+		                    <span class="icon-bar"></span>
+		                    <span class="icon-bar"></span>
+		                </button>
+		                <g:link class="navbar-brand" controller="accueil">AlbyBail</g:link>
+		            </div>
+		            
+		            <div class="collapse navbar-collapse navbar-ex1-collapse">
+		                <ul class="nav navbar-nav side-nav">
+		                    <li>
+		                        <g:link class="list" controller="contrat">Contrats</g:link>
+		                    </li>
+		                    <li>
+		                        <g:link class="list" controller="edition">Edition des factures</g:link>
+		                    </li>
+		                    <li>
+	                            <g:link class="list" controller="batiment">Bâtiments</g:link>
+	                        </li>
+	                        <li>
+	                            <g:link class="list" controller="local">Locaux</g:link>
+	                        </li>
+	                        <li>
+	                            <g:link class="list" controller="locataire">Locataires</g:link>
+	                        </li>
+	                        <li>
+	                            <g:link class="list" controller="indice">Indices INSEE</g:link>
+	                        </li>
+		                </ul>
+		            </div>
+		        </div>
 	        </nav>
-
-	        <div id="page-wrapper">
+	        
 			<g:layoutBody/>
-			</div>
-		</div>
+
 		<asset:javascript src="application.js"/>
 	</body>
 </html>

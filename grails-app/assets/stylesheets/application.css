@@ -38,16 +38,24 @@ th.desc a {
 
 /* Affichage form */
 
+.form-row {
+	margin-top: 1em;
+}
+
 .form-label {
 	color: #666666;
 	text-align: left;
 }
 
-.form-row {
-	margin-top: 1em;
+.form-value {
+	text-align: left;
 }
 
 /* Affichage show */
+
+.show-row {
+	margin-top: 1em;
+}
 
 .show-label {
 	color: #666666;

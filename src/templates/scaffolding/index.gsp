@@ -21,7 +21,7 @@
 				</div>
 			</div>
 		
-			<div class="row page-content">
+			<div class="page-content">
 				<g:if test="\${flash.message}">
 					<div class="alert alert-info" role="status">\${flash.message}</div>
 				</g:if>

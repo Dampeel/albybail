@@ -20,7 +20,7 @@
 				</div>
 			</div>
 		
-			<div class="row page-content">
+			<div class="page-content">
 				<g:if test="\${flash.message}">
 					<div class="alert alert-danger" role="status">\${flash.message}</div>
 				</g:if>
@@ -35,14 +35,14 @@
 					</div>
 				</g:hasErrors>
 				
-				<g:form class="form-horizontal" url="[resource:${propertyName}, action:'update']" method="PUT" <%= multiPart ? ' enctype="multipart/form-data"' : '' %> role="form">
+				<g:form url="[resource:${propertyName}, action:'update']" method="PUT" <%= multiPart ? ' enctype="multipart/form-data"' : '' %> role="form">
 					<g:hiddenField name="version" value="\${${propertyName}?.version}" />
 						
 					<g:render template="form"/>
 					
-					<div class="form-group">
+					<div class="row form-row">
 						<div class="col-sm-offset-2 col-sm-10">
-					  		<g:actionSubmit class="btn btn-default save" action="update" value="\${message(code: 'default.button.update.label', default: 'Update')}" />
+					  		<g:actionSubmit class="btn btn-default btn-save" action="update" value="\${message(code: 'default.button.update.label', default: 'Update')}" />
 						</div>
 					</div>
 				</g:form>

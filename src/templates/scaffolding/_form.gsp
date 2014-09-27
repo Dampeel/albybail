@@ -36,11 +36,11 @@ private renderFieldForProperty(p, owningClass, prefix = "") {
 	}
 	%>
 <div class="row form-row \${hasErrors(bean: ${propertyName}, field: '${prefix}${p.name}', 'error')} ${required ? 'required' : ''}">
-	<label for="${prefix}${p.name}" class="col-sm-2 form-label">
+	<div class="col-sm-2 form-label">
 		<g:message code="${domainClass.propertyName}.${prefix}${p.name}.label" default="${p.naturalName}" />
 		<% if (required) { %><span class="required-indicator">*</span><% } %>
-	</label>
-	<div class="col-sm-10">
+	</div>
+	<div class="col-sm-10 form-value">
 		${renderEditor(p)}
 	</div>
 </div>

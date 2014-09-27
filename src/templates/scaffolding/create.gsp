@@ -19,7 +19,7 @@
 				</div>
 			</div>
 		
-			<div class="row page-content">
+			<div class="page-content">
 				<g:if test="\${flash.message}">
 					<div class="alert alert-info" role="status">\${flash.message}</div>
 				</g:if>
@@ -34,12 +34,12 @@
 					</div>
 				</g:hasErrors>
 				
-				<g:form class="form-horizontal" url="[resource:${propertyName}, action:'save']" <%= multiPart ? ' enctype="multipart/form-data"' : '' %>>
+				<g:form url="[resource:${propertyName}, action:'save']" <%= multiPart ? ' enctype="multipart/form-data"' : '' %>>
 	  				<g:render template="form"/>
 						
-					<div class="form-group">
+					<div class="row form-row">
 						<div class="col-sm-offset-2 col-sm-10">
-							<g:submitButton name="create" class="btn btn-default save" value="\${message(code: 'default.button.create.label', default: 'Create')}" />
+							<g:submitButton name="create" class="btn btn-default btn-save" value="\${message(code: 'default.button.create.label', default: 'Create')}" />
 						</div>
 					</div>
 				</g:form>

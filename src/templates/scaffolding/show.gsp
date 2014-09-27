@@ -25,7 +25,7 @@
 				</div>
 			</div>
 		
-			<div class="row page-content">
+			<div class="page-content">
 				<g:if test="\${flash.message}">
 					<div class="alert alert-info" role="status">\${flash.message}</div>
 				</g:if>
@@ -36,6 +36,7 @@
 					Collections.sort(props, comparator.constructors[0].newInstance([domainClass] as Object[]))
 					props.each { p -> %>
 					<g:if test="\${${propertyName}?.${p.name}}">
+					<div class="row show-row">
 	    				<div class="show-label col-sm-2">
 							<g:message code="${domainClass.propertyName}.${p.name}.label" default="${p.naturalName}" />
 						</div>
@@ -56,6 +57,7 @@
 							<g:fieldValue bean="\${${propertyName}}" field="${p.name}"/>
 						<%  } %>
 						</div>
+					</div>
 					</g:if>
 				<%  } %>
 			</div>
