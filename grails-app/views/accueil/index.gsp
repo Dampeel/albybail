@@ -8,15 +8,18 @@
 
 	<body>
 
-		<div class="container-fluid">
-       		<div class="row">
-               <div class="col-lg-12"><h1>Bienvenue sur AlbyBail !</h1>
-
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-5">
+					<h1>Bienvenue sur AlbyBail !</h1>
+					
 					<p>Bonjour, vous êtes sur la page d'accueil de l'application. Vous y trouverez un menu vous permettant d'accèder aux opérations
 						ou aux données. Les opérations regroupent les fonctionnalités qui agissent sur les objets. Les données permettent 
 						de gérer ces même objets : création, consultation, modification ou suppression.</p>
 					<p>Ci-dessous l'ensemble des objets qui nécessitent votre attention.</p>
-					
+				</div>
+				
+				<div class="col-lg-7">
 					<h3>Contrats à réviser :</h3>
 				
 					<g:each in="${contratChezNotaireList}" var="contratInstance">

@@ -19,29 +19,32 @@ class BootStrap {
 			def local2 = new Local(nom: "Albyloc partie 2", surface: "", batiment: albyloc).save(failOnError: true)
 			def local3 = new Local(nom: "Niveau 2, Atelier 1", surface: "130", batiment: touviere).save(failOnError: true)
 			def local4 = new Local(nom: "Niveau 2, Bat. ouest", surface: "200", batiment: touviere).save(failOnError: true)
-			def local5 = new Local(nom: "Niveau 2, Atelier 2", surface: "211", batiment: touviere).save(failOnError: true)
+			def local5 = new Local(nom: "Niveau 3, Atelier 1", surface: "211", batiment: touviere).save(failOnError: true)
+			def local6 = new Local(nom: "Niveau 3, Atelier 2", surface: "23", batiment: touviere).save(failOnError: true)
+			def local7 = new Local(nom: "Niveau 3, Atelier 3", surface: "45", batiment: touviere).save(failOnError: true)
+			def local8 = new Local(nom: "Niveau 3, Atelier 4", surface: "88", batiment: touviere).save(failOnError: true)
 			
 			def locataire1 = new Locataire(nom: "Banque Populaire", adresse: "2 avenue de Grésivaudan\n38700 CORENC").save(failOnError: true)
 			def locataire2 = new Locataire(nom: "Bel Air", adresse: "Zone espace leaders\n156 rue de Moutti Sud\n74540 Alby-sur-Chéran", remarques: "Demande à partir le 31/07/2014").save(failOnError: true)
 			def locataire3 = new Locataire(nom: "Serrur'elec", adresse: "12 rue Saint Polycarpe, 69001 Lyon").save(failOnError: true)
 			def locataire4 = new Locataire(nom: "Pettini", adresse: "10 avenue du Maroc, Marcoville").save(failOnError: true)
+			def locataire5 = new Locataire(nom: "Peelman", adresse: "7 rue des Lys, Narbonne").save(failOnError: true)
+			def locataire6 = new Locataire(nom: "Dubois", adresse: "Sait-Aubin").save(failOnError: true)
+			def locataire7 = new Locataire(nom: "La poste", adresse: "25 rue Paul Verlaine, Villeurbanne").save(failOnError: true)
 			
-			/*String		nom
-			Date		dateDebut		= new Date()
-			Date		dateFin
-			Integer		dureeRevision
-			Boolean		chezNotaire		= true
-			Boolean		estTermine
-			String		remarques
-			Locataire	locataire*/
+			def indice1 = new Indice(date: new Date("01/01/2012"), valeur: 1234.56).save(failOnError: true)
+			def indice2 = new Indice(date: new Date("01/04/2012"), valeur: 1258.34).save(failOnError: true)
+			def indice3 = new Indice(date: new Date("01/07/2012"), valeur: 1259.14).save(failOnError: true)
+			def indice4 = new Indice(date: new Date("01/10/2012"), valeur: 1257.10).save(failOnError: true)
 			
-			def contrat1 = new Contrat(	
+			def contrat1 = new Contrat(
 				nom: 			"Contrat de location",
 				dateDebut: 		new Date("15/11/2012"),
 				dateFin: 		new Date("14/11/2021"),
 				dureeRevision:	3,
 				chezNotaire:	false,
 				estTermine:		false,
+				montantLoyer:	1100.00,
 				remarques:		"",
 				locataire:		locataire1
 			)
@@ -55,10 +58,11 @@ class BootStrap {
 				dureeRevision:	1,
 				chezNotaire:	true,
 				estTermine:		false,
+				montantLoyer:	1200.00,
 				remarques:		"",
 				locataire:		locataire2
 			)
-			.addToLocaux(local3)
+			.addToLocaux(local2)
 			.save(failOnError: true)
 			
 			def contrat3 = new Contrat(	
@@ -68,10 +72,64 @@ class BootStrap {
 				dureeRevision:	3,
 				chezNotaire:	false,
 				estTermine:		true,
+				montantLoyer:	100.00,
 				remarques:		"Contrat cloturé le 12/12/2012",
-				locataire:		locataire2
+				locataire:		locataire3
 			)
 			.addToLocaux(local3)
+			.save(failOnError: true)
+			
+			def contrat4 = new Contrat(	
+				nom: 			"Contrat",
+				dateDebut: 		new Date("13/09/2005"),
+				dateFin: 		new Date("14/12/2015"),
+				dureeRevision:	3,
+				chezNotaire:	false,
+				estTermine:		false,
+				montantLoyer:	1300.00,
+				locataire:		locataire4
+			)
+			.addToLocaux(local4)
+			.save(failOnError: true)
+			
+			def contrat5 = new Contrat(	
+				nom: 			"Contrat",
+				dateDebut: 		new Date("21/06/2008"),
+				dateFin: 		new Date("14/12/2015"),
+				dureeRevision:	1,
+				chezNotaire:	false,
+				estTermine:		false,
+				montantLoyer:	1250.00,
+				locataire:		locataire5
+			)
+			.addToLocaux(local5)
+			.addToLocaux(local6)
+			.save(failOnError: true)
+			
+			def contrat6 = new Contrat(	
+				nom: 			"Contrat",
+				dateDebut: 		new Date("01/04/2012"),
+				dateFin: 		new Date("14/12/2015"),
+				dureeRevision:	3,
+				chezNotaire:	false,
+				estTermine:		false,
+				montantLoyer:	200.00,
+				locataire:		locataire6
+			)
+			.addToLocaux(local7)
+			.save(failOnError: true)
+			
+			def contrat7 = new Contrat(	
+				nom: 			"Contrat",
+				dateDebut: 		new Date("13/09/2010"),
+				dateFin: 		new Date("14/12/2015"),
+				dureeRevision:	1,
+				chezNotaire:	false,
+				estTermine:		false,
+				montantLoyer:	1000.00,
+				locataire:		locataire7
+			)
+			.addToLocaux(local8)
 			.save(failOnError: true)
 			
 		}

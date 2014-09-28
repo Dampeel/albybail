@@ -1,9 +1,9 @@
-<%=packageName%>
+<%@ page import="albybail.Locataire" %>
 <!DOCTYPE html>
 <html>
 	<head>
 		<meta name="layout" content="main">
-		<g:set var="entityName" value="\${message(code: '${domainClass.propertyName}.label', default: '${className}')}" />
+		<g:set var="entityName" value="${message(code: 'locataire.label', default: 'Locataire')}" />
 		<title><g:message code="default.edit.label" args="[entityName]" /></title>
 	</head>
 	
@@ -21,28 +21,28 @@
 			</div>
 		
 			<div class="page-content">
-				<g:if test="\${flash.message}">
-					<div class="alert alert-danger" role="status">\${flash.message}</div>
+				<g:if test="${flash.message}">
+					<div class="alert alert-danger" role="status">${flash.message}</div>
 				</g:if>
 				
-				<g:hasErrors bean="\${${propertyName}}">
+				<g:hasErrors bean="${locataireInstance}">
 					<div class="alert alert-info" role="status">
 						<ul role="alert">
-							<g:eachError bean="\${${propertyName}}" var="error">
-							<li <g:if test="\${error in org.springframework.validation.FieldError}">data-field-id="\${error.field}"</g:if>><g:message error="\${error}"/></li>
+							<g:eachError bean="${locataireInstance}" var="error">
+							<li <g:if test="${error in org.springframework.validation.FieldError}">data-field-id="${error.field}"</g:if>><g:message error="${error}"/></li>
 							</g:eachError>
 						</ul>
 					</div>
 				</g:hasErrors>
 				
-				<g:form url="[resource:${propertyName}, action:'update']" method="PUT" <%= multiPart ? ' enctype="multipart/form-data" ' : '' %>role="form">
-					<g:hiddenField name="version" value="\${${propertyName}?.version}" />
+				<g:form url="[resource:locataireInstance, action:'update']" method="PUT"  role="form">
+					<g:hiddenField name="version" value="${locataireInstance?.version}" />
 						
 					<g:render template="form"/>
 					
 					<div class="row form-row">
 						<div class="col-sm-offset-2 col-sm-10">
-					  		<g:actionSubmit class="btn btn-default btn-save" action="update" value="\${message(code: 'default.button.update.label', default: 'Update')}" />
+					  		<g:actionSubmit class="btn btn-default btn-save" action="update" value="${message(code: 'default.button.update.label', default: 'Update')}" />
 						</div>
 					</div>
 				</g:form>

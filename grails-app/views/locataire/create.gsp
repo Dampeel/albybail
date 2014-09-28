@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta name="layout" content="main">
-		<g:set var="entityName" value="\${message(code: '${domainClass.propertyName}.label', default: '${className}')}" />
+		<g:set var="entityName" value="${message(code: 'locataire.label', default: 'Locataire')}" />
 		<title><g:message code="default.create.label" args="[entityName]" /></title>
 	</head>
 	
@@ -20,26 +20,26 @@
 			</div>
 		
 			<div class="page-content">
-				<g:if test="\${flash.message}">
-					<div class="alert alert-info" role="status">\${flash.message}</div>
+				<g:if test="${flash.message}">
+					<div class="alert alert-info" role="status">${flash.message}</div>
 				</g:if>
 				
-				<g:hasErrors bean="\${${propertyName}}">
+				<g:hasErrors bean="${locataireInstance}">
 					<div class="alert alert-danger" role="status">
 						<ul role="alert">
-							<g:eachError bean="\${${propertyName}}" var="error">
-							<li <g:if test="\${error in org.springframework.validation.FieldError}">data-field-id="\${error.field}"</g:if>><g:message error="\${error}"/></li>
+							<g:eachError bean="${locataireInstance}" var="error">
+							<li <g:if test="${error in org.springframework.validation.FieldError}">data-field-id="${error.field}"</g:if>><g:message error="${error}"/></li>
 							</g:eachError>
 						</ul>
 					</div>
 				</g:hasErrors>
 				
-				<g:form url="[resource:${propertyName}, action:'save']" <%= multiPart ? ' enctype="multipart/form-data" ' : '' %>role="form">
+				<g:form url="[resource:locataireInstance, action:'save']" >
 	  				<g:render template="form"/>
 						
 					<div class="row form-row">
 						<div class="col-sm-offset-2 col-sm-10">
-							<g:submitButton name="create" class="btn btn-default btn-save" value="\${message(code: 'default.button.create.label', default: 'Create')}" />
+							<g:submitButton name="create" class="btn btn-default btn-save" value="${message(code: 'default.button.create.label', default: 'Create')}" />
 						</div>
 					</div>
 				</g:form>

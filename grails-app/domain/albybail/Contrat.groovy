@@ -5,12 +5,15 @@ class Contrat {
 	String		nom
 	Date		dateDebut		= new Date()
 	Date		dateFin
-	Integer		dureeRevision
+	Integer		dureeRevision	= 3
 	Boolean		chezNotaire		= true
-	Boolean		estTermine
+	Boolean		estTermine		= false
+	BigDecimal	montantLoyer
 	String		remarques
 	
 	Locataire	locataire
+	
+	static hasOne = [revisionActive: Revision]
 	
 	static hasMany = [
 		locaux: 		Local,
@@ -22,6 +25,8 @@ class Contrat {
     static constraints = {
 		nom				blank: false, size: 3..100
 		dateFin			validator: { val, obj -> val?.after(obj.dateDebut) }
-		remarques		blank: true, nullable: true
+		montantLoyer	min: 0.0
+		remarques		blank: true, nullable: true, sizeMax: 500
+		revisionActive	nullable: true
     }
 }
