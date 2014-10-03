@@ -24,7 +24,7 @@ class BatimentControllerSpec extends Specification {
             !model.batimentInstanceList
             model.batimentInstanceCount == 0
     }
-
+	
     void "Test the create action returns the correct model"() {
         when:"The create action is executed"
             controller.create()
