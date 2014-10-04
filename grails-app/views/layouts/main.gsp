@@ -35,7 +35,7 @@
 		                        <g:link class="list" controller="contrat">Contrats</g:link>
 		                    </li>
 		                    <li>
-		                        <g:link class="list" controller="revision">Revisions</g:link>
+		                        <g:link class="list" controller="revision" action="listAReviser">Revisions</g:link>
 		                    </li>
 		                    <li>
 		                        <g:link class="list" controller="editionFacture">Edition des factures</g:link>

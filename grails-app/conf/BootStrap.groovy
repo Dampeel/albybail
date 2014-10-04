@@ -32,10 +32,10 @@ class BootStrap {
 			def locataire6 = new Locataire(nom: "Dubois", adresse: "Sait-Aubin").save(failOnError: true)
 			def locataire7 = new Locataire(nom: "La poste", adresse: "25 rue Paul Verlaine, Villeurbanne").save(failOnError: true)
 			
-			def indice1 = new Indice(date: new Date("01/01/2012"), valeur: 1234.56).save(failOnError: true)
-			def indice2 = new Indice(date: new Date("01/04/2012"), valeur: 1258.34).save(failOnError: true)
-			def indice3 = new Indice(date: new Date("01/07/2012"), valeur: 1259.14).save(failOnError: true)
-			def indice4 = new Indice(date: new Date("01/10/2012"), valeur: 1257.10).save(failOnError: true)
+			def indice1 = new Indice(trimestre: "T1", annee: "2014", valeur: 1234.56).save(failOnError: true)
+			def indice2 = new Indice(trimestre: "T2", annee: "2014", valeur: 1233.03).save(failOnError: true)
+			def indice3 = new Indice(trimestre: "T3", annee: "2014", valeur: 1265.16).save(failOnError: true)
+			def indice4 = new Indice(trimestre: "T4", annee: "2014", valeur: 1268.34).save(failOnError: true)
 			
 			def contrat1 = new Contrat(
 				nom: 			"Contrat de location",
@@ -45,6 +45,7 @@ class BootStrap {
 				chezNotaire:	false,
 				estTermine:		false,
 				montantLoyer:	1100.00,
+				montantCharges:	100.00,
 				remarques:		"",
 				locataire:		locataire1
 			)
@@ -59,6 +60,7 @@ class BootStrap {
 				chezNotaire:	true,
 				estTermine:		false,
 				montantLoyer:	1200.00,
+				montantCharges:	100.00,
 				remarques:		"",
 				locataire:		locataire2
 			)
@@ -73,6 +75,7 @@ class BootStrap {
 				chezNotaire:	false,
 				estTermine:		true,
 				montantLoyer:	100.00,
+				montantCharges:	10.00,
 				remarques:		"Contrat cloturé le 12/12/2012",
 				locataire:		locataire3
 			)
@@ -87,6 +90,7 @@ class BootStrap {
 				chezNotaire:	false,
 				estTermine:		false,
 				montantLoyer:	1300.00,
+				montantCharges:	200.00,
 				locataire:		locataire4
 			)
 			.addToLocaux(local4)
@@ -100,6 +104,7 @@ class BootStrap {
 				chezNotaire:	false,
 				estTermine:		false,
 				montantLoyer:	1250.00,
+				montantCharges:	100.00,
 				locataire:		locataire5
 			)
 			.addToLocaux(local5)
@@ -114,6 +119,7 @@ class BootStrap {
 				chezNotaire:	false,
 				estTermine:		false,
 				montantLoyer:	200.00,
+				montantCharges: 50.00,
 				locataire:		locataire6
 			)
 			.addToLocaux(local7)
@@ -127,6 +133,7 @@ class BootStrap {
 				chezNotaire:	false,
 				estTermine:		false,
 				montantLoyer:	1000.00,
+				montantCharges:	100.00,
 				locataire:		locataire7
 			)
 			.addToLocaux(local8)

@@ -2,11 +2,12 @@ package albybail
 
 class Indice {
 
-	Date		date
+	String		trimestre
+	String		annee
 	BigDecimal	valeur
 	
     static constraints = {
-		date	unique: true
+		// TODO : contraintes trimestre et annee
 		valeur	nullable: true, min: 0.0
     }
 }

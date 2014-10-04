@@ -9,11 +9,12 @@ class Contrat {
 	Boolean		chezNotaire		= true
 	Boolean		estTermine		= false
 	BigDecimal	montantLoyer
+	BigDecimal	montantCharges
 	String		remarques
+	Boolean		estNouveau		= true
 	
 	Locataire	locataire
-	
-	static hasOne = [revisionActive: Revision]
+	Revision	revisionActive
 	
 	static hasMany = [
 		locaux: 		Local,
@@ -26,6 +27,7 @@ class Contrat {
 		nom				blank: false, size: 3..100
 		dateFin			validator: { val, obj -> val?.after(obj.dateDebut) }
 		montantLoyer	min: 0.0
+		montantCharges	min: 0.0
 		remarques		blank: true, nullable: true, sizeMax: 500
 		revisionActive	nullable: true
     }

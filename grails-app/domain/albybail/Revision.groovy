@@ -6,8 +6,10 @@ class Revision {
 	Date		dateFin
 	Indice		indice
 	BigDecimal	montantLoyer
+	BigDecimal	montantCharges
 	String		remarques
-	
+	Boolean		aReguler		= true
+
 	Contrat		contrat
 	
 	static belongsTo = Contrat
@@ -16,6 +18,7 @@ class Revision {
 		dateFin			validator: { val, obj -> val?.after(obj.dateDebut) }
 		indice			nullable: true
 		montantLoyer	min: 0.0
+		montantCharges	min: 0.0
 		remarques		blank: true, nullable: true, sizeMax: 500
     }
 }
