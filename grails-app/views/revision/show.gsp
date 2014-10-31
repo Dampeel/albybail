@@ -16,7 +16,7 @@
 				</div>
 				<div class="col-sm-5">
 					<div class="h1-buttons">
-						<g:form url="[resource:contratInstance, action:'delete']" method="DELETE">
+						<g:form url="[resource:revisionInstance, action:'delete']" method="DELETE">
 							<g:link class="btn btn-default list" action="index"><g:message code="default.button.list.label" /></g:link>
 							<g:link class="btn btn-default edit" action="edit" resource="${revisionInstance}"><g:message code="default.button.edit.label" /></g:link>
 							<g:actionSubmit  class="btn btn-default delete" action="delete" value="${message(code: 'default.button.delete.label')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
@@ -29,7 +29,18 @@
 				<g:if test="${flash.message}">
 					<div class="alert alert-info" role="status">${flash.message}</div>
 				</g:if>
-				
+					<g:if test="${revisionInstance?.dateDebut}">
+					<div class="row show-row">
+	    				<div class="show-label col-sm-2">
+							<g:message code="revision.dateDebut.label" default="Date Debut" />
+						</div>
+						<div class="show-value col-sm-10">
+						
+							<g:formatDate date="${revisionInstance?.dateDebut}" />
+						
+						</div>
+					</div>
+					</g:if>
 				
 					<g:if test="${revisionInstance?.dateFin}">
 					<div class="row show-row">
@@ -50,9 +61,7 @@
 							<g:message code="revision.indice.label" default="Indice" />
 						</div>
 						<div class="show-value col-sm-10">
-						
-							<g:link controller="indice" action="show" id="${revisionInstance?.indice?.id}">${revisionInstance?.indice?.encodeAsHTML()}</g:link>
-						
+							<g:fieldValue bean="${revisionInstance}" field="indice"/>
 						</div>
 					</div>
 					</g:if>
@@ -121,20 +130,6 @@
 						</div>
 					</div>
 					</g:if>
-				
-					<g:if test="${revisionInstance?.dateDebut}">
-					<div class="row show-row">
-	    				<div class="show-label col-sm-2">
-							<g:message code="revision.dateDebut.label" default="Date Debut" />
-						</div>
-						<div class="show-value col-sm-10">
-						
-							<g:formatDate date="${revisionInstance?.dateDebut}" />
-						
-						</div>
-					</div>
-					</g:if>
-				
 			</div>
 		</div>
 	</body>

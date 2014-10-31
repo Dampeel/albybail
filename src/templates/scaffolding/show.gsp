@@ -16,7 +16,7 @@
 				</div>
 				<div class="col-sm-5">
 					<div class="h1-buttons">
-						<g:form url="[resource:contratInstance, action:'delete']" method="DELETE">
+						<g:form url="[resource:${propertyName}, action:'delete']" method="DELETE">
 							<g:link class="btn btn-default list" action="index"><g:message code="default.button.list.label" /></g:link>
 							<g:link class="btn btn-default edit" action="edit" resource="\${${propertyName}}"><g:message code="default.button.edit.label" /></g:link>
 							<g:actionSubmit  class="btn btn-default delete" action="delete" value="\${message(code: 'default.button.delete.label')}" onclick="return confirm('\${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />

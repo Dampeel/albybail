@@ -1,8 +1,12 @@
 import securite.*
 import albybail.*
 
+import groovy.time.TimeCategory
+
 class BootStrap {
 
+	def indiceService
+	
     def init = { servletContext ->
 			
 		def adminRole = new Role(authority: 'ROLE_ADMIN').save(flush: true)
@@ -32,29 +36,56 @@ class BootStrap {
 			def locataire6 = new Locataire(nom: "Dubois", adresse: "Sait-Aubin").save(failOnError: true)
 			def locataire7 = new Locataire(nom: "La poste", adresse: "25 rue Paul Verlaine, Villeurbanne").save(failOnError: true)
 			
-			def indice1 = new Indice(trimestre: "T1", annee: "2014", valeur: 1234.56).save(failOnError: true)
-			def indice2 = new Indice(trimestre: "T2", annee: "2014", valeur: 1233.03).save(failOnError: true)
-			def indice3 = new Indice(trimestre: "T3", annee: "2014", valeur: 1265.16).save(failOnError: true)
-			def indice4 = new Indice(trimestre: "T4", annee: "2014", valeur: 1268.34).save(failOnError: true)
+			/*def indice1 = new Indice(nom: "1er Trimestre 2013", dateDebut: new Date("01/01/2013"), dateFin: new Date("31/03/2013"), valeur: 1234.56).save(failOnError: true)
+			def indice2 = new Indice(nom: "2ème Trimestre 2013", dateDebut: new Date("01/04/2013"), dateFin: new Date("30/06/2013"), valeur: 1233.03).save(failOnError: true)
+			def indice3 = new Indice(nom: "3ème Trimestre 2013", dateDebut: new Date("01/07/2013"), dateFin: new Date("30/09/2013"), valeur: 1265.16).save(failOnError: true)
+			def indice4 = new Indice(nom: "4ème Trimestre 2013", dateDebut: new Date("01/10/2013"), dateFin: new Date("31/12/2013"), valeur: 1268.34).save(failOnError: true)
+			def indice5 = new Indice(nom: "1er Trimestre 2014", dateDebut: new Date("01/01/2014"), dateFin: new Date("31/03/2014"), valeur: 1234.56).save(failOnError: true)
+			def indice6 = new Indice(nom: "2ème Trimestre 2014", dateDebut: new Date("01/04/2014"), dateFin: new Date("30/06/2014"), valeur: 1233.03).save(failOnError: true)
+			def indice7 = new Indice(nom: "3ème Trimestre 2014", dateDebut: new Date("01/07/2014"), dateFin: new Date("30/09/2014"), valeur: 1265.16).save(failOnError: true)
+			def indice8 = new Indice(nom: "4ème Trimestre 2014", dateDebut: new Date("01/10/2014"), dateFin: new Date("31/12/2014"), valeur: 1268.34).save(failOnError: true)*/
+			
+			def ajd = new Date()
+			def ajd_m3a15j
+			def ajd_m1a15j
+			def ajd_m15j
+			use(TimeCategory) {
+				ajd_m3a15j = ajd - 3.years - 15.days
+				ajd_m1a15j = ajd - 1.years - 15.days
+				ajd_m15j = ajd - 15.days
+			}
 			
 			def contrat1 = new Contrat(
-				nom: 			"Contrat de location",
-				dateDebut: 		new Date("15/11/2012"),
-				dateFin: 		new Date("14/11/2021"),
-				dureeRevision:	3,
+				nom: 			"Contrat de test révision",
+				dateDebut: 		ajd_m1a15j,
+				dateFin: 		new Date("15/08/2022"),
+				dureeRevision:	1,
 				chezNotaire:	false,
 				estTermine:		false,
 				montantLoyer:	1100.00,
 				montantCharges:	100.00,
-				remarques:		"",
+				remarques:		"contrat à réviser",
 				locataire:		locataire1
 			)
 			.addToLocaux(local1)
 			.save(failOnError: true)
 			
+			def revision1 = new Revision(
+				dateDebut: 		ajd_m1a15j,
+				dateFin: 		ajd_m15j,
+				montantLoyer:	1100.00,
+				montantCharges:	100.00,
+				indice:			100,
+				contrat:		contrat1,
+				aReguler:		false
+			).save(failOnError: true)
+			
+			contrat1.revisionActive = revision1
+			contrat1.save(failOnError: true)
+			
 			def contrat2 = new Contrat(	
 				nom: 			"Contrat de location",
-				dateDebut: 		new Date("15/11/2012"),
+				dateDebut: 		new Date("15/11/2014"),
 				dateFin: 		new Date("14/11/2021"),
 				dureeRevision:	1,
 				chezNotaire:	true,
@@ -69,7 +100,7 @@ class BootStrap {
 			
 			def contrat3 = new Contrat(	
 				nom: 			"Contrat de location",
-				dateDebut: 		new Date("15/11/2012"),
+				dateDebut: 		new Date("15/11/2014"),
 				dateFin: 		new Date("14/11/2021"),
 				dureeRevision:	3,
 				chezNotaire:	false,
@@ -84,8 +115,8 @@ class BootStrap {
 			
 			def contrat4 = new Contrat(	
 				nom: 			"Contrat",
-				dateDebut: 		new Date("13/09/2005"),
-				dateFin: 		new Date("14/12/2015"),
+				dateDebut: 		new Date("13/09/2014"),
+				dateFin: 		new Date("14/12/2025"),
 				dureeRevision:	3,
 				chezNotaire:	false,
 				estTermine:		false,
@@ -98,8 +129,8 @@ class BootStrap {
 			
 			def contrat5 = new Contrat(	
 				nom: 			"Contrat",
-				dateDebut: 		new Date("21/06/2008"),
-				dateFin: 		new Date("14/12/2015"),
+				dateDebut: 		new Date("21/06/2014"),
+				dateFin: 		new Date("14/12/2025"),
 				dureeRevision:	1,
 				chezNotaire:	false,
 				estTermine:		false,
@@ -113,8 +144,8 @@ class BootStrap {
 			
 			def contrat6 = new Contrat(	
 				nom: 			"Contrat",
-				dateDebut: 		new Date("01/04/2012"),
-				dateFin: 		new Date("14/12/2015"),
+				dateDebut: 		new Date("01/04/2014"),
+				dateFin: 		new Date("14/12/2025"),
 				dureeRevision:	3,
 				chezNotaire:	false,
 				estTermine:		false,
@@ -127,8 +158,8 @@ class BootStrap {
 			
 			def contrat7 = new Contrat(	
 				nom: 			"Contrat",
-				dateDebut: 		new Date("13/09/2010"),
-				dateFin: 		new Date("14/12/2015"),
+				dateDebut: 		new Date("13/09/2001"),
+				dateFin: 		new Date("14/12/2025"),
 				dureeRevision:	1,
 				chezNotaire:	false,
 				estTermine:		false,

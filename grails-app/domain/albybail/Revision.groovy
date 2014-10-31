@@ -4,7 +4,7 @@ class Revision {
 	
 	Date		dateDebut
 	Date		dateFin
-	Indice		indice
+	BigDecimal	indice
 	BigDecimal	montantLoyer
 	BigDecimal	montantCharges
 	String		remarques
@@ -16,7 +16,7 @@ class Revision {
 
     static constraints = {
 		dateFin			validator: { val, obj -> val?.after(obj.dateDebut) }
-		indice			nullable: true
+		indice			min: 0.0
 		montantLoyer	min: 0.0
 		montantCharges	min: 0.0
 		remarques		blank: true, nullable: true, sizeMax: 500

@@ -22,11 +22,11 @@
 		
 			<div class="page-content">
 				<g:if test="${flash.message}">
-					<div class="alert alert-danger" role="status">${flash.message}</div>
+					<div class="alert alert-info" role="status">${flash.message}</div>
 				</g:if>
 				
 				<g:hasErrors bean="${revisionInstance}">
-					<div class="alert alert-info" role="status">
+					<div class="alert alert-danger" role="status">
 						<ul role="alert">
 							<g:eachError bean="${revisionInstance}" var="error">
 							<li <g:if test="${error in org.springframework.validation.FieldError}">data-field-id="${error.field}"</g:if>><g:message error="${error}"/></li>
