@@ -33,7 +33,7 @@
 							
 								<g:sortableColumn property="dateFin" title="${message(code: 'revision.dateFin.label', default: 'Date Fin')}" />
 							
-								<th><g:message code="revision.indice.label" default="Indice" /></th>
+								<g:sortableColumn property="indice" title="${message(code: 'revision.indice.label', default: 'Indice')}" />
 							
 								<g:sortableColumn property="montantLoyer" title="${message(code: 'revision.montantLoyer.label', default: 'Montant Loyer')}" />
 							

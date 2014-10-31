@@ -29,18 +29,7 @@
 				<g:if test="${flash.message}">
 					<div class="alert alert-info" role="status">${flash.message}</div>
 				</g:if>
-					<g:if test="${revisionInstance?.dateDebut}">
-					<div class="row show-row">
-	    				<div class="show-label col-sm-2">
-							<g:message code="revision.dateDebut.label" default="Date Debut" />
-						</div>
-						<div class="show-value col-sm-10">
-						
-							<g:formatDate date="${revisionInstance?.dateDebut}" />
-						
-						</div>
-					</div>
-					</g:if>
+				
 				
 					<g:if test="${revisionInstance?.dateFin}">
 					<div class="row show-row">
@@ -61,7 +50,9 @@
 							<g:message code="revision.indice.label" default="Indice" />
 						</div>
 						<div class="show-value col-sm-10">
+						
 							<g:fieldValue bean="${revisionInstance}" field="indice"/>
+						
 						</div>
 					</div>
 					</g:if>
@@ -130,6 +121,20 @@
 						</div>
 					</div>
 					</g:if>
+				
+					<g:if test="${revisionInstance?.dateDebut}">
+					<div class="row show-row">
+	    				<div class="show-label col-sm-2">
+							<g:message code="revision.dateDebut.label" default="Date Debut" />
+						</div>
+						<div class="show-value col-sm-10">
+						
+							<g:formatDate date="${revisionInstance?.dateDebut}" />
+						
+						</div>
+					</div>
+					</g:if>
+				
 			</div>
 		</div>
 	</body>

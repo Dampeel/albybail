@@ -222,7 +222,7 @@
                 if (!cp.attributes.precision) {
                     sb << "precision=\"${precision}\" "
                 }
-                sb << " value=\"\${${domainInstance}?.${property.name}}\" ${renderNoSelection(property)} />"
+                sb << " value=\"\${formatDate(format:'dd/MM/yyyy',date:${domainInstance}?.${property.name})}\" ${renderNoSelection(property)} />"
 
                 return sb.toString()
             }

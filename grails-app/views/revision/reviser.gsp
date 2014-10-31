@@ -37,7 +37,49 @@
 				</g:hasErrors>
 				
 				<g:form url="[resource:revisionInstance, action:'sauver']" role="form">
-	  				<g:render template="form"/>
+	  				<g:hiddenField name="contrat" value="${revisionInstance?.contrat?.id}" />
+	  				<g:hiddenField name="montantLoyer" value="${formatNumber(number: revisionInstance?.montantLoyer)}" />
+	  				<g:hiddenField name="montantCharges" value="${formatNumber(number: revisionInstance?.montantCharges)}" />
+	  				
+					<div class="row form-row ${hasErrors(bean: revisionInstance, field: 'dateDebut', 'error')} required">
+						<div class="col-sm-2 form-label">
+							<g:message code="revision.dateDebut.label" default="Date Debut" />
+							<span class="required-indicator">*</span>
+						</div>
+						<div class="col-sm-10 form-value">
+							<g:textField class="form-control datepicker" name="dateDebut" precision="day" value="${formatDate(format:'dd/MM/yyyy',date:revisionInstance?.dateDebut)}"  />
+						</div>
+					</div>
+					
+					<div class="row form-row ${hasErrors(bean: revisionInstance, field: 'dateFin', 'error')} required">
+						<div class="col-sm-2 form-label">
+							<g:message code="revision.dateFin.label" default="Date Fin" />
+							<span class="required-indicator">*</span>
+						</div>
+						<div class="col-sm-10 form-value">
+							<g:textField class="form-control datepicker" name="dateFin" precision="day" value="${formatDate(format:'dd/MM/yyyy',date:revisionInstance?.dateFin)}"  />
+						</div>
+					</div>
+	
+					<div class="row form-row ${hasErrors(bean: revisionInstance, field: 'indice', 'error')} required">
+						<div class="col-sm-2 form-label">
+							<g:message code="revision.indice.label" default="Indice" />
+							<span class="required-indicator">*</span>
+						</div>
+						<div class="col-sm-10 form-value">
+							<g:textField class="form-control" name="indice" value="${fieldValue(bean: revisionInstance, field: 'indice')}" required=""/>
+						</div>
+					</div>
+
+					<div class="row form-row ${hasErrors(bean: revisionInstance, field: 'remarques', 'error')} ">
+						<div class="col-sm-2 form-label">
+							<g:message code="revision.remarques.label" default="Remarques" />
+							
+						</div>
+						<div class="col-sm-10 form-value">
+							<g:textField class="form-control" name="remarques" value="${revisionInstance?.remarques}"/>
+						</div>
+					</div>
 						
 					<div class="row form-row">
 						<div class="col-sm-offset-2 col-sm-10">

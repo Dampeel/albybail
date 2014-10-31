@@ -29,6 +29,7 @@ class RevisionController {
 	
 	@Transactional
 	def sauver(Revision revisionInstance) {
+		println params
 		if (revisionInstance == null) {
             notFound()
             return
@@ -39,7 +40,7 @@ class RevisionController {
             return
         }
 
-        revisionInstance.save flush:true
+		contratService.sauverRevision(revisionInstance)
 
         request.withFormat {
             form multipartForm {
@@ -75,7 +76,7 @@ class RevisionController {
             return
         }
 
-        revisionInstance.save flush:true
+		contratService.sauverRevision(revisionInstance)
 
         request.withFormat {
             form multipartForm {

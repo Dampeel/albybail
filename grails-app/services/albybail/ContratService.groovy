@@ -42,11 +42,21 @@ class ContratService {
 		return revision
 	}
 	
-	def sauverRevision(Contrat contrat, Revision revision) {
+	def sauverRevision(Revision revision) {
+		def contrat = revision.contrat
 		if (contrat.revisionActive == null) {
 			contrat.revisionActive = revision
 		} else {
 			def ancienneRevision = contrat.revisionActive
+			
+			// calcul du nouveau loyer
+			println ancienneRevision.montantLoyer
+			println revision.indice
+			println ancienneRevision.indice
+			revision.montantLoyer = ancienneRevision.montantLoyer * (revision.indice / ancienneRevision.indice)
+			println revision.montantLoyer
+			
+			// sauvegarde
 			contrat.revisionActive = revision
 			contrat.addToRevisions(ancienneRevision)
 		}
