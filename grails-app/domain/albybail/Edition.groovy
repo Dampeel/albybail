@@ -26,6 +26,6 @@ class Edition {
 		adresseBatiment		blank: false, size: 3..400
 		nomContrat			blank: false, size: 3..100
 		nomTotal			blank: false, size: 3..50
-		total				min: 0.0
+		total				min: 0.0, scale: 2
     }
 }

@@ -16,16 +16,22 @@ class ContratService {
 	 */
 	
 	/* Contrat à reviser :
-	 * mois de révision >= dateFin révision courante ou nouveau contrat
+	 * date courante >= dateFin révision courante ou nouveau contrat
 	 */
 	List<Contrat> listeAReviser() {
 		def liste = new ArrayList<Contrat>()
 		def ajd = new Date() // aujourd'hui
-
+		
 		Contrat.findAllByEstTermine(false).each { contrat ->
 			if (contrat.revisionActive == null) {
+				// contrat sans révision (nouveau contrat)
 				liste.add(contrat)
 			} else if (ajd.after(contrat.revisionActive.dateFin)) {
+				// contrat dont la date de révision est passée
+				liste.add(contrat)
+			} else if (ajd.month == contrat.revisionActive.dateFin.month
+				&& ajd.year == contrat.revisionActive.dateFin.year) {
+				// contrat avec une révision dans le mois courant
 				liste.add(contrat)
 			}
 		}
@@ -41,31 +47,10 @@ class ContratService {
 		}
 		return revision
 	}
-	
-	def sauverRevision(Revision revision) {
-		def contrat = revision.contrat
-		if (contrat.revisionActive == null) {
-			contrat.revisionActive = revision
-		} else {
-			def ancienneRevision = contrat.revisionActive
-			
-			// calcul du nouveau loyer
-			println ancienneRevision.montantLoyer
-			println revision.indice
-			println ancienneRevision.indice
-			revision.montantLoyer = ancienneRevision.montantLoyer * (revision.indice / ancienneRevision.indice)
-			println revision.montantLoyer
-			
-			// sauvegarde
-			contrat.revisionActive = revision
-			contrat.addToRevisions(ancienneRevision)
-		}
-		contrat.save(flush:true)
-	}
 
 	Revision creerRevisionNouveauContrat(Contrat contrat) {
 		
-		// récupération des données
+		// récupération des données du contrat
 		def dateDebut = contrat.dateDebut
 		def dateFin = contrat.dateDebut
 		def montantLoyer = contrat.montantLoyer
@@ -92,27 +77,18 @@ class ContratService {
 		return nouvelleRevision
     }
 	
-	def creerRevisionContratExistant(Contrat contrat) {
+	Revision creerRevisionContratExistant(Contrat contrat) {
 		
-		// récupération des données
+		// récupération des données de la dernière révision
 		def ancienneRevision = contrat.revisionActive
-		def dateDebut = ancienneRevision.dateFin
-		def dateFin = ancienneRevision.dateFin
-		// def montantCharges = ancienneRevision.montantCharges
-		// def indice = ancienneRevision.indice
+		def dateDebut
+		def dateFin
 		
 		// calcul des dates de la nouvelle révision
 		use(TimeCategory) {
-			dateDebut += 1.day
+			dateDebut = ancienneRevision.dateFin + 1.day
 			dateFin = dateDebut + contrat.dureeRevision.year
 		}
-		
-		// récupération de l'indice applicable
-		// def nouvelIndice = indiceService.indiceApplicable(dateDebut)
-		
-		// calcul du loyer
-		// TODO : arrondir valeur à deux décimales
-		// def montantLoyer = ancienneRevision.montantLoyer * (ancienIndice.valeur / nouvelIndice.valeur)
 		
 		// création de la révision
 		def nouvelleRevision = new Revision(
@@ -127,11 +103,24 @@ class ContratService {
 		return nouvelleRevision
 	}
 	
-	def calculAReguler(Revision revision) {
-		if (revision.indice.dateFin < revision.dateDebut) {
-			revision.aReguler = true
+	def sauverRevision(Revision revision) {
+		def contrat = revision.contrat
+		if (contrat.revisionActive == null) {
+			contrat.revisionActive = revision
 		} else {
-			revision.aReguler = false
+			def ancienneRevision = contrat.revisionActive
+			
+			// calcul du nouveau loyer
+			println ancienneRevision.montantLoyer
+			println revision.indice
+			println ancienneRevision.indice
+			revision.montantLoyer = ancienneRevision.montantLoyer * (revision.indice / ancienneRevision.indice)
+			println revision.montantLoyer
+			
+			// sauvegarde
+			contrat.revisionActive = revision
+			contrat.addToRevisions(ancienneRevision)
 		}
+		contrat.save(flush:true)
 	}
 }

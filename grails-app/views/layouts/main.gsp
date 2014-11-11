@@ -52,9 +52,6 @@
 	                        <li>
 	                            <g:link class="list" controller="locataire">Locataires</g:link>
 	                        </li>
-	                        <li>
-	                            <g:link class="list" controller="indice">Indices INSEE</g:link>
-	                        </li>
 		                </ul>
 		            </div>
 		        </div>

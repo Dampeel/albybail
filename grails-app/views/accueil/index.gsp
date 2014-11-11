@@ -14,9 +14,9 @@
 					<h1>Bienvenue sur AlbyBail !</h1>
 					
 					<p>Bonjour, vous êtes sur la page d'accueil de l'application. Vous y trouverez un menu vous permettant d'accèder aux opérations
-						ou aux données. Les opérations regroupent les fonctionnalités qui agissent sur les objets. Les données permettent 
-						de gérer ces même objets : création, consultation, modification ou suppression.</p>
-					<p>Ci-dessous l'ensemble des objets qui nécessitent votre attention.</p>
+						ou aux données. Les opérations permettent d'agir (réviser un contrat, facturer, éditer des factures). Les données permettent 
+						de gérer de manipuler les objets (contrat, batiment, locataire, etc.) : création, consultation, modification ou suppression.</p>
+					<p>Ci-contre l'ensemble des objets qui nécessitent votre attention.</p>
 				</div>
 				
 				<div class="col-lg-7">

@@ -49,10 +49,12 @@ class BootStrap {
 			def ajd_m3a15j
 			def ajd_m1a15j
 			def ajd_m15j
+			def ajd_m3ap1j
 			use(TimeCategory) {
 				ajd_m3a15j = ajd - 3.years - 15.days
 				ajd_m1a15j = ajd - 1.years - 15.days
 				ajd_m15j = ajd - 15.days
+				ajd_m3ap1j = ajd + 1.days
 			}
 			
 			def contrat1 = new Contrat(
@@ -143,8 +145,8 @@ class BootStrap {
 			.save(failOnError: true)
 			
 			def contrat6 = new Contrat(	
-				nom: 			"Contrat",
-				dateDebut: 		new Date("01/04/2014"),
+				nom: 			"Contrat avec révision dans le mois",
+				dateDebut: 		ajd_m3ap1j,
 				dateFin: 		new Date("14/12/2025"),
 				dureeRevision:	3,
 				chezNotaire:	false,

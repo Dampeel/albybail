@@ -16,9 +16,9 @@ class Revision {
 
     static constraints = {
 		dateFin			validator: { val, obj -> val?.after(obj.dateDebut) }
-		indice			min: 0.0
-		montantLoyer	min: 0.0
-		montantCharges	min: 0.0
+		indice			min: 0.0, scale: 2
+		montantLoyer	min: 0.0, scale: 2
+		montantCharges	min: 0.0, scale: 2
 		remarques		blank: true, nullable: true, sizeMax: 500
     }
 }
