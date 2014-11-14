@@ -96,19 +96,6 @@
 					</div>
 					</g:if>
 				
-					<g:if test="${revisionInstance?.aReguler}">
-					<div class="row show-row">
-	    				<div class="show-label col-sm-2">
-							<g:message code="revision.aReguler.label" default="A Reguler" />
-						</div>
-						<div class="show-value col-sm-10">
-						
-							<g:formatBoolean boolean="${revisionInstance?.aReguler}" />
-						
-						</div>
-					</div>
-					</g:if>
-				
 					<g:if test="${revisionInstance?.contrat}">
 					<div class="row show-row">
 	    				<div class="show-label col-sm-2">

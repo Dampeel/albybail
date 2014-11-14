@@ -1,7 +1,6 @@
+import groovy.time.TimeCategory
 import securite.*
 import albybail.*
-
-import groovy.time.TimeCategory
 
 class BootStrap {
 
@@ -45,6 +44,46 @@ class BootStrap {
 			def indice7 = new Indice(nom: "3ème Trimestre 2014", dateDebut: new Date("01/07/2014"), dateFin: new Date("30/09/2014"), valeur: 1265.16).save(failOnError: true)
 			def indice8 = new Indice(nom: "4ème Trimestre 2014", dateDebut: new Date("01/10/2014"), dateFin: new Date("31/12/2014"), valeur: 1268.34).save(failOnError: true)*/
 			
+			def jan = new Plage(moisDebut: 1, moisFin: 1).save(failOnError: true)
+			def fev = new Plage(moisDebut: 2, moisFin: 2).save(failOnError: true)
+			def mar = new Plage(moisDebut: 3, moisFin: 3).save(failOnError: true)
+			def avr = new Plage(moisDebut: 4, moisFin: 4).save(failOnError: true)
+			def mai = new Plage(moisDebut: 5, moisFin: 5).save(failOnError: true)
+			def jun = new Plage(moisDebut: 6, moisFin: 6).save(failOnError: true)
+			def jul = new Plage(moisDebut: 7, moisFin: 7).save(failOnError: true)
+			def aou = new Plage(moisDebut: 8, moisFin: 8).save(failOnError: true)
+			def sep = new Plage(moisDebut: 9, moisFin: 9).save(failOnError: true)
+			def oct = new Plage(moisDebut: 10, moisFin: 10).save(failOnError: true)
+			def nov = new Plage(moisDebut: 11, moisFin: 11).save(failOnError: true)
+			def dec = new Plage(moisDebut: 12, moisFin: 12).save(failOnError: true)
+			
+			def tr1 = new Plage(moisDebut: 1, moisFin: 3).save(failOnError: true)
+			def tr2 = new Plage(moisDebut: 4, moisFin: 6).save(failOnError: true)
+			def tr3 = new Plage(moisDebut: 7, moisFin: 9).save(failOnError: true)
+			def tr4 = new Plage(moisDebut: 10, moisFin: 12).save(failOnError: true)
+			
+			def profil1 = new Profil(nom: "mensuel")
+			profil1.addToPlages(jan)
+			profil1.addToPlages(fev)
+			profil1.addToPlages(mar)
+			profil1.addToPlages(avr)
+			profil1.addToPlages(mai)
+			profil1.addToPlages(jun)
+			profil1.addToPlages(jul)
+			profil1.addToPlages(aou)
+			profil1.addToPlages(sep)
+			profil1.addToPlages(oct)
+			profil1.addToPlages(nov)
+			profil1.addToPlages(dec)
+			profil1.save(failOnError: true)
+			
+			def profil2 = new Profil(nom: "trimestriel")
+			profil2.addToPlages(tr1)
+			profil2.addToPlages(tr2)
+			profil2.addToPlages(tr3)
+			profil2.addToPlages(tr4)
+			profil2.save(failOnError: true)
+			
 			def ajd = new Date()
 			def ajd_m3a15j
 			def ajd_m1a15j
@@ -67,7 +106,8 @@ class BootStrap {
 				montantLoyer:	1100.00,
 				montantCharges:	100.00,
 				remarques:		"contrat à réviser",
-				locataire:		locataire1
+				locataire:		locataire1,
+				profil:			profil1
 			)
 			.addToLocaux(local1)
 			.save(failOnError: true)
@@ -95,13 +135,14 @@ class BootStrap {
 				montantLoyer:	1200.00,
 				montantCharges:	100.00,
 				remarques:		"",
-				locataire:		locataire2
+				locataire:		locataire2,
+				profil:			profil1
 			)
 			.addToLocaux(local2)
 			.save(failOnError: true)
 			
 			def contrat3 = new Contrat(	
-				nom: 			"Contrat de location",
+				nom: 			"Contrat terminé",
 				dateDebut: 		new Date("15/11/2014"),
 				dateFin: 		new Date("14/11/2021"),
 				dureeRevision:	3,
@@ -110,13 +151,14 @@ class BootStrap {
 				montantLoyer:	100.00,
 				montantCharges:	10.00,
 				remarques:		"Contrat cloturé le 12/12/2012",
-				locataire:		locataire3
+				locataire:		locataire3,
+				profil:			profil2
 			)
 			.addToLocaux(local3)
 			.save(failOnError: true)
 			
 			def contrat4 = new Contrat(	
-				nom: 			"Contrat",
+				nom: 			"Contrat de profil trimestriel",
 				dateDebut: 		new Date("13/09/2014"),
 				dateFin: 		new Date("14/12/2025"),
 				dureeRevision:	3,
@@ -124,10 +166,24 @@ class BootStrap {
 				estTermine:		false,
 				montantLoyer:	1300.00,
 				montantCharges:	200.00,
-				locataire:		locataire4
+				locataire:		locataire4,
+				profil:			profil2
 			)
 			.addToLocaux(local4)
 			.save(failOnError: true)
+			
+			def revision2 = new Revision(
+				dateDebut: 		ajd_m1a15j,
+				dateFin: 		ajd_m15j,
+				montantLoyer:	1100.00,
+				montantCharges:	100.00,
+				indice:			100,
+				contrat:		contrat4,
+				aReguler:		false
+			).save(failOnError: true)
+			
+			contrat4.revisionActive = revision2
+			contrat4.save(failOnError: true)
 			
 			def contrat5 = new Contrat(	
 				nom: 			"Contrat",
@@ -138,7 +194,8 @@ class BootStrap {
 				estTermine:		false,
 				montantLoyer:	1250.00,
 				montantCharges:	100.00,
-				locataire:		locataire5
+				locataire:		locataire5,
+				profil:			profil2
 			)
 			.addToLocaux(local5)
 			.addToLocaux(local6)
@@ -153,7 +210,8 @@ class BootStrap {
 				estTermine:		false,
 				montantLoyer:	200.00,
 				montantCharges: 50.00,
-				locataire:		locataire6
+				locataire:		locataire6,
+				profil:			profil1
 			)
 			.addToLocaux(local7)
 			.save(failOnError: true)
@@ -167,7 +225,8 @@ class BootStrap {
 				estTermine:		false,
 				montantLoyer:	1000.00,
 				montantCharges:	100.00,
-				locataire:		locataire7
+				locataire:		locataire7,
+				profil:			profil2
 			)
 			.addToLocaux(local8)
 			.save(failOnError: true)

@@ -5,51 +5,14 @@ import grails.transaction.Transactional
 
 @Transactional(readOnly = true)
 class RevisionController {
-
-	def contratService
 	
 	def beforeInterceptor = [ action: {
 			params.dateDebut = params.date('dateDebut', 'dd/MM/yyyy')
 			params.dateFin = params.date('dateFin', 'dd/MM/yyyy')
-		}, only:['sauver', 'save', 'update']
+		}, only:['save', 'update']
 	]
 
-    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE", sauver: "POST"]
-	
-	def listeAReviser() {
-		return [contratAReviserList: contratService.listeAReviser()]
-	}
-	
-	def reviser() {
-		def contrat = Contrat.get(params.contratId)
-		def revisionInstance = contratService.creerRevision(contrat)
-		
-		respond revisionInstance
-	}
-	
-	@Transactional
-	def sauver(Revision revisionInstance) {
-		println params
-		if (revisionInstance == null) {
-            notFound()
-            return
-        }
-
-        if (revisionInstance.hasErrors()) {
-            respond revisionInstance.errors, view:'reviser'
-            return
-        }
-
-		contratService.sauverRevision(revisionInstance)
-
-        request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.created.message', args: [message(code: 'revision.label', default: 'Revision'), revisionInstance.id])
-                redirect revisionInstance
-            }
-            '*' { respond revisionInstance, [status: CREATED] }
-        }
-	}
+    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)

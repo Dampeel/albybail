@@ -35,7 +35,10 @@
 		                        <g:link class="list" controller="contrat">Contrats</g:link>
 		                    </li>
 		                    <li>
-		                        <g:link class="list" controller="revision" action="listeAReviser">Reviser</g:link>
+		                        <g:link class="list" controller="reviser" action="index">Reviser</g:link>
+		                    </li>
+		                    <li>
+		                        <g:link class="list" controller="facturer" action="index">Facturer</g:link>
 		                    </li>
 		                    <li>
 		                        <g:link class="list" controller="revision">Revisions</g:link>

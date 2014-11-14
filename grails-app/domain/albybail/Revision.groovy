@@ -8,7 +8,6 @@ class Revision {
 	BigDecimal	montantLoyer
 	BigDecimal	montantCharges
 	String		remarques
-	Boolean		aReguler		= true
 
 	Contrat		contrat
 	
@@ -21,4 +20,8 @@ class Revision {
 		montantCharges	min: 0.0, scale: 2
 		remarques		blank: true, nullable: true, sizeMax: 500
     }
+	
+	String toString() {
+		return "Révision du " + dateDebut + " au " + dateFin + " pour le contrat " + contrat.nom
+	}
 }

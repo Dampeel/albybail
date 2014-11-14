@@ -11,20 +11,19 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-6">
-					<h1>Contrats à réviser</h1>
+					<h1>Contrats à facturer</h1>
 					
-					<p>Voici la liste des contrats à réviser. 
-					Vous devez cliquer sur chacun d'entre eux pour visualiser les conditions de révision.<br/>
-					Si un calcul ne vous semble pas correct, merci de contacter un administrateur. <br/>
+					<p>Voici la liste des contrats à facturer. 
+					Vous devez cliquer sur chacun d'entre eux pour générer la facturation.<br/>
 					Si tout vous semble correct, vous pouvez valider en cliquant sur "Enregister".</p>
 				</div>
 				
 				<div class="col-lg-6">
-					<h3>Contrats à réviser :</h3>
+					<h3>Contrats à facturer :</h3>
 				
-					<g:if test="${contratAReviserList}">
-						<g:each in="${contratAReviserList}" var="contratInstance">
-							<g:link controller="revision" action="reviser" params="[contratId: contratInstance.id]">
+					<g:if test="${contrats}">
+						<g:each in="${contrats}" var="contratInstance">
+							<g:link controller="facturer" action="facturer" params="[contratId: contratInstance.id]">
 							<div class="well">
 								${contratInstance.nom} avec <strong>${contratInstance.locataire?.nom}</strong>
 								<g:if test="${contratInstance.locaux.size()==1}">

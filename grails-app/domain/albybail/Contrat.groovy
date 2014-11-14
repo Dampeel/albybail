@@ -15,6 +15,7 @@ class Contrat {
 	
 	Locataire	locataire
 	Revision	revisionActive
+	Profil		profil
 	
 	static hasMany = [
 		locaux: 		Local,
