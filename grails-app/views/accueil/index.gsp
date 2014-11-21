@@ -22,7 +22,7 @@
 				<div class="col-lg-7">
 					<h3>Contrats à réviser :</h3>
 				
-					<g:each in="${contratChezNotaireList}" var="contratInstance">
+					<g:each in="${contratAReviserList}" var="contratInstance">
 						<g:link controller="contrat" action="show" id="${contratInstance.id}">
 						<div class="well">
 							${contratInstance.nom} avec <strong>${contratInstance.locataire?.nom}</strong>
@@ -45,9 +45,10 @@
 						</div>
 						</g:link>
 					</g:each>
+					
 					<h3>Contrats bloqués chez le notaire :</h3>
 				
-					<g:each in="${contratAReviserList}" var="contratInstance">
+					<g:each in="${contratChezNotaireList}" var="contratInstance">
 						<g:link controller="contrat" action="show" id="${contratInstance.id}">
 						<div class="well">
 							${contratInstance.nom} avec <strong>${contratInstance.locataire?.nom}</strong>

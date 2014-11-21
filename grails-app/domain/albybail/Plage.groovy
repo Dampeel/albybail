@@ -31,6 +31,6 @@ class Plage {
 	}
 	
 	public String toString() {
-		return "Du " + moisDebut + " au " + moisFin
+		return "Plage du " + moisDebut + " au " + moisFin
 	}
 }

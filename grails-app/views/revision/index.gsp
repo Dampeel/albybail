@@ -31,17 +31,15 @@
 						<thead>
 							<tr>
 							
+								<g:sortableColumn property="contrat" title="${message(code: 'revision.contrat.label', default: 'Contrat')}" />
+							
+								<g:sortableColumn property="dateDebut" title="${message(code: 'revision.dateDebut.label', default: 'Date Debut')}" />
+							
 								<g:sortableColumn property="dateFin" title="${message(code: 'revision.dateFin.label', default: 'Date Fin')}" />
 							
 								<g:sortableColumn property="indice" title="${message(code: 'revision.indice.label', default: 'Indice')}" />
 							
 								<g:sortableColumn property="montantLoyer" title="${message(code: 'revision.montantLoyer.label', default: 'Montant Loyer')}" />
-							
-								<g:sortableColumn property="montantCharges" title="${message(code: 'revision.montantCharges.label', default: 'Montant Charges')}" />
-							
-								<g:sortableColumn property="remarques" title="${message(code: 'revision.remarques.label', default: 'Remarques')}" />
-							
-								<g:sortableColumn property="aReguler" title="${message(code: 'revision.aReguler.label', default: 'A Reguler')}" />
 							
 							</tr>
 						</thead>
@@ -49,18 +47,16 @@
 						<tbody>
 						<g:each in="${revisionInstanceList}" status="i" var="revisionInstance">
 							<tr>
+				
+								<td><g:link action="show" id="${revisionInstance.id}">${fieldValue(bean: revisionInstance, field: "contrat")}</g:link></td>
 							
-								<td><g:link action="show" id="${revisionInstance.id}">${fieldValue(bean: revisionInstance, field: "dateFin")}</g:link></td>
+								<td><g:formatDate date="${revisionInstance.dateDebut}" type="date" style="MEDIUM" /></td>
+								
+								<td><g:formatDate date="${revisionInstance.dateFin}" type="date" style="MEDIUM" /></td>
 							
 								<td>${fieldValue(bean: revisionInstance, field: "indice")}</td>
 							
-								<td>${fieldValue(bean: revisionInstance, field: "montantLoyer")}</td>
-							
-								<td>${fieldValue(bean: revisionInstance, field: "montantCharges")}</td>
-							
-								<td>${fieldValue(bean: revisionInstance, field: "remarques")}</td>
-							
-								<td><g:formatBoolean boolean="${revisionInstance.aReguler}" /></td>
+								<td><g:formatNumber number="${revisionInstance.montantLoyer}" type="currency" currencyCode="EUR" /></td>
 							
 							</tr>
 						</g:each>

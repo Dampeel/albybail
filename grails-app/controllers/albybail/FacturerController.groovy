@@ -8,13 +8,13 @@ class FacturerController {
     static allowedMethods = [sauver: "POST"]
 
     def index() {
-		return [contrats: contratService.listeAFacturer()]
+		def date = new Date()
+		return [contrats: contratService.listeAFacturer(date)]
 	}
 	
 	def facturer() {
 		def contrat = Contrat.get(params.contratId)
 		def dateFacturation = new Date()
-		dateFacturation[Calendar.MONTH] = Calendar.OCTOBER
 		
 		facturationService.creerFacturables(contrat, dateFacturation)
 		

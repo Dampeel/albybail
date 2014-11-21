@@ -13,4 +13,16 @@ class LigneEdition {
 		description	blank: false, size: 3..50
 		valeur		min: 0.0
     }
+	
+	static mapping = {
+		sort "description"
+	} 
+	
+	String toString() {
+		return description
+	}
+	
+	int compareTo(obj) {
+		description.compareTo(obj.description)
+	}
 }

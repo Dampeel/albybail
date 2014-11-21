@@ -16,7 +16,8 @@ class ReviserController {
     static allowedMethods = [sauver: "POST"]
 	
 	def index() {
-		return [revisions: contratService.listeAReviser()]
+		def date = new Date()
+		return [revisions: contratService.listeAReviser(date)]
 	}
 	
 	def reviser() {

@@ -1,10 +1,12 @@
 package albybail
 
-class Locataire {
+class Locataire implements Comparable {
 
-	String	nom
-	String	adresse
-	String	remarques
+	String		nom
+	String		adresse
+	String		remarques
+	
+	SortedSet	contrats
 	
 	static hasMany = [contrats: Contrat]
 	
@@ -13,4 +15,16 @@ class Locataire {
 		adresse		blank: true, nullable: true, maxSize: 400
 		remarques	blank: true, nullable: true
     }
+	
+	static mapping = {
+		sort "nom"
+	}
+	
+	String toString() {
+		return nom
+	}
+	
+	int compareTo(obj) {
+		nom.compareTo(obj.nom)
+	}
 }

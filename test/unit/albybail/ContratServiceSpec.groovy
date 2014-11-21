@@ -11,12 +11,6 @@ import spock.lang.Specification
 @Mock([Batiment, Local, Locataire, Plage, Profil, Contrat, Revision, ProfilService, RevisionService])
 class ContratServiceSpec extends Specification {
 	
-	// contrat terminé
-	// contrat mensuel avec révision courante qui se termine dans le mois
-	// contrat mensuel avec révision courante qui se termine le mois prochain
-	// contrat trimestriel avec révision courante qui se termine le mois prochain
-	// contrat sans revision
-	
 	void "contrat terminé (non révisable ni facturable)"() {
 		
 		def contrat = new Contrat(
@@ -68,7 +62,7 @@ class ContratServiceSpec extends Specification {
 		def contrat = new Contrat(
 			nom:			"Contrat",
 			dateDebut: 		Date.parse("dd/MM/yyyy", "15/06/2013"),
-			dateFin: 		Date.parse("dd/MM/yyyy", "15/06/2022"),
+			dateFin: 		Date.parse("dd/MM/yyyy", "15/06/2015"),
 			dureeRevision:	1,
 			chezNotaire:	false,
 			estTermine:		false,
@@ -103,6 +97,46 @@ class ContratServiceSpec extends Specification {
 		true == service.estRevisable(contrat, date3)
 		true == service.estRevisable(contrat, date4)
 		true == service.estRevisable(contrat, date5)
+	}
+	
+	void "revisable contrat mensuel avec révision (début et fin de contrat)"() {
+
+		def contrat = new Contrat(
+			nom:			"Contrat",
+			dateDebut: 		Date.parse("dd/MM/yyyy", "15/06/2014"),
+			dateFin: 		Date.parse("dd/MM/yyyy", "15/06/2015"),
+			dureeRevision:	1,
+			chezNotaire:	false,
+			estTermine:		false,
+			montantLoyer:	1100.00,
+			montantCharges:	100.00,
+			locataire:		Locataire.first(),
+			profil:			Profil.findByNom("mensuel")
+		).addToLocaux(Local.first()).save()
+			
+		def revision = new Revision(
+			dateDebut: 		Date.parse("dd/MM/yyyy", "15/06/2014"),
+			dateFin: 		Date.parse("dd/MM/yyyy", "15/06/2015"),
+			montantLoyer:	1100.00,
+			montantCharges:	100.00,
+			indice:			100,
+			contrat:		contrat
+		).save()
+		
+		contrat.revisionActive = revision
+		contrat.save()
+	
+		Date date1 = Date.parse("dd/MM/yyyy", "01/06/2014")
+		Date date2 = Date.parse("dd/MM/yyyy", "01/06/2015")
+		Date date3 = Date.parse("dd/MM/yyyy", "18/06/2014")
+		Date date4 = Date.parse("dd/MM/yyyy", "18/06/2015")
+		
+		expect:
+		
+		false == service.estRevisable(contrat, date1)
+		false == service.estRevisable(contrat, date2)
+		false == service.estRevisable(contrat, date3)
+		false == service.estRevisable(contrat, date4)
 	}
 	
 	void "revisable contrat trimestriel avec révision (fonction de la date)"() {
@@ -151,6 +185,46 @@ class ContratServiceSpec extends Specification {
 		true == service.estRevisable(contrat, date6)
 		true == service.estRevisable(contrat, date7)
 		true == service.estRevisable(contrat, date8)
+	}
+	
+	void "revisable contrat trimestriel avec révision (debut et fin de contrat)"() {
+
+		def contrat = new Contrat(
+			nom:			"Contrat",
+			dateDebut: 		Date.parse("dd/MM/yyyy", "15/08/2013"),
+			dateFin: 		Date.parse("dd/MM/yyyy", "15/08/2014"),
+			dureeRevision:	1,
+			chezNotaire:	false,
+			estTermine:		false,
+			montantLoyer:	1100.00,
+			montantCharges:	100.00,
+			locataire:		Locataire.first(),
+			profil:			Profil.findByNom("trimestriel")
+		).addToLocaux(Local.first()).save()
+		
+		def revision = new Revision(
+			dateDebut: 		Date.parse("dd/MM/yyyy", "15/08/2013"),
+			dateFin: 		Date.parse("dd/MM/yyyy", "15/08/2014"),
+			montantLoyer:	1100.00,
+			montantCharges:	100.00,
+			indice:			100,
+			contrat:		contrat
+		).save()
+		
+		contrat.revisionActive = revision
+		contrat.save()
+		
+		Date date1 = Date.parse("dd/MM/yyyy", "01/08/2013")
+		Date date2 = Date.parse("dd/MM/yyyy", "20/08/2013")
+		Date date3 = Date.parse("dd/MM/yyyy", "01/08/2014")
+		Date date4 = Date.parse("dd/MM/yyyy", "31/08/2014")
+		
+		expect:
+		
+		false == service.estRevisable(contrat, date1)
+		false == service.estRevisable(contrat, date2)
+		false == service.estRevisable(contrat, date3)
+		false == service.estRevisable(contrat, date4)
 	}
 
 	void "facturable contrat mensuel avec révision (fonction de la date)"() {
@@ -231,6 +305,8 @@ class ContratServiceSpec extends Specification {
 		Date date7 = Date.parse("dd/MM/yyyy", "01/09/2014")
 		Date date8 = Date.parse("dd/MM/yyyy", "01/10/2014")
 		Date date9 = Date.parse("dd/MM/yyyy", "29/02/2016")
+		
+		Date date10 = Date.parse("dd/MM/yyyy", "01/08/2013")
 		
 		expect:
 		

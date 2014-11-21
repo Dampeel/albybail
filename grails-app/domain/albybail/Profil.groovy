@@ -9,4 +9,8 @@ class Profil {
     static constraints = {
 		nom	blank: false, size: 3..100
     }
+	
+	String toString() {
+		return nom
+	}
 }

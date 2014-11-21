@@ -32,21 +32,6 @@
 		            <div class="collapse navbar-collapse navbar-ex1-collapse">
 		                <ul class="nav navbar-nav side-nav">
 		                    <li>
-		                        <g:link class="list" controller="contrat">Contrats</g:link>
-		                    </li>
-		                    <li>
-		                        <g:link class="list" controller="reviser" action="index">Reviser</g:link>
-		                    </li>
-		                    <li>
-		                        <g:link class="list" controller="facturer" action="index">Facturer</g:link>
-		                    </li>
-		                    <li>
-		                        <g:link class="list" controller="revision">Revisions</g:link>
-		                    </li>
-		                    <li>
-		                        <g:link class="list" controller="editionFacture">Edition des factures</g:link>
-		                    </li>
-		                    <li>
 	                            <g:link class="list" controller="batiment">Bâtiments</g:link>
 	                        </li>
 	                        <li>
@@ -55,6 +40,24 @@
 	                        <li>
 	                            <g:link class="list" controller="locataire">Locataires</g:link>
 	                        </li>
+		                    <li>
+		                        <g:link class="list" controller="contrat">Contrats</g:link>
+		                    </li>
+		                    <li>
+		                        <g:link class="list" controller="revision">Revisions</g:link>
+		                    </li>
+		                    <li>
+		                        <g:link class="list" controller="facturable">Facturables</g:link>
+		                    </li>
+		                    <li>
+		                        <g:link class="list" controller="reviser" action="index">Reviser</g:link>
+		                    </li>
+		                    <li>
+		                        <g:link class="list" controller="facturer" action="index">Facturer</g:link>
+		                    </li>
+		                    <li>
+		                        <g:link class="list" controller="editer">Editer</g:link>
+		                    </li>
 		                </ul>
 		            </div>
 		        </div>

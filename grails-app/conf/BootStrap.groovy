@@ -99,7 +99,7 @@ class BootStrap {
 			def contrat1 = new Contrat(
 				nom: 			"Contrat de test révision",
 				dateDebut: 		ajd_m1a15j,
-				dateFin: 		new Date("15/08/2022"),
+				dateFin: 		Date.parse("dd/MM/yyyy", "15/08/2022"),
 				dureeRevision:	1,
 				chezNotaire:	false,
 				estTermine:		false,
@@ -127,8 +127,8 @@ class BootStrap {
 			
 			def contrat2 = new Contrat(	
 				nom: 			"Contrat de location",
-				dateDebut: 		new Date("15/11/2014"),
-				dateFin: 		new Date("14/11/2021"),
+				dateDebut: 		Date.parse("dd/MM/yyyy", "15/11/2014"),
+				dateFin: 		Date.parse("dd/MM/yyyy", "14/11/2021"),
 				dureeRevision:	1,
 				chezNotaire:	true,
 				estTermine:		false,
@@ -143,8 +143,8 @@ class BootStrap {
 			
 			def contrat3 = new Contrat(	
 				nom: 			"Contrat terminé",
-				dateDebut: 		new Date("15/11/2014"),
-				dateFin: 		new Date("14/11/2021"),
+				dateDebut: 		Date.parse("dd/MM/yyyy", "15/11/2014"),
+				dateFin: 		Date.parse("dd/MM/yyyy", "14/11/2021"),
 				dureeRevision:	3,
 				chezNotaire:	false,
 				estTermine:		true,
@@ -159,8 +159,8 @@ class BootStrap {
 			
 			def contrat4 = new Contrat(	
 				nom: 			"Contrat de profil trimestriel",
-				dateDebut: 		new Date("13/09/2014"),
-				dateFin: 		new Date("14/12/2025"),
+				dateDebut: 		Date.parse("dd/MM/yyyy", "13/09/2014"),
+				dateFin: 		Date.parse("dd/MM/yyyy", "14/12/2025"),
 				dureeRevision:	3,
 				chezNotaire:	false,
 				estTermine:		false,
@@ -187,8 +187,8 @@ class BootStrap {
 			
 			def contrat5 = new Contrat(	
 				nom: 			"Contrat",
-				dateDebut: 		new Date("21/06/2014"),
-				dateFin: 		new Date("14/12/2025"),
+				dateDebut: 		Date.parse("dd/MM/yyyy", "21/06/2014"),
+				dateFin: 		Date.parse("dd/MM/yyyy", "14/12/2025"),
 				dureeRevision:	1,
 				chezNotaire:	false,
 				estTermine:		false,
@@ -203,8 +203,8 @@ class BootStrap {
 			
 			def contrat6 = new Contrat(	
 				nom: 			"Contrat avec révision dans le mois",
-				dateDebut: 		ajd_m3ap1j,
-				dateFin: 		new Date("14/12/2025"),
+				dateDebut: 		Date.parse("dd/MM/yyyy", "13/09/2001"),
+				dateFin: 		Date.parse("dd/MM/yyyy", "14/12/2025"),
 				dureeRevision:	3,
 				chezNotaire:	false,
 				estTermine:		false,
@@ -218,8 +218,8 @@ class BootStrap {
 			
 			def contrat7 = new Contrat(	
 				nom: 			"Contrat",
-				dateDebut: 		new Date("13/09/2001"),
-				dateFin: 		new Date("14/12/2025"),
+				dateDebut: 		Date.parse("dd/MM/yyyy", "13/09/2001"),
+				dateFin: 		Date.parse("dd/MM/yyyy", "14/12/2025"),
 				dureeRevision:	1,
 				chezNotaire:	false,
 				estTermine:		false,

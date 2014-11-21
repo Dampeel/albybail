@@ -1,7 +1,6 @@
 package albybail
 
 import grails.transaction.Transactional
-import util.*
 
 @Transactional
 class FacturationService {
@@ -9,7 +8,7 @@ class FacturationService {
 	ProfilService profilService
 	RevisionService revisionService
 
-	List<Facturable> creerFacturables(Contrat contrat, Date dateFact) {
+	def creerFacturables(Contrat contrat, Date dateFact) {
 		
 		// TODO: améliorer gestion des contrats sans révision
 		if (!contrat.revisionActive) {
@@ -24,8 +23,6 @@ class FacturationService {
 		contrat.addToFacturables(loyer)
 		contrat.addToFacturables(charges)
 		contrat.save(flush: true)
-		
-		return liste
 	}
 	
 	Facturable calculLoyer(Contrat contrat, Date date) {
@@ -33,16 +30,26 @@ class FacturationService {
 		def loyer = new Facturable(nom: "loyer")
 		
 		// recherche de la plage de facturation correspondant à la date de facturation
-		def plage = profilService.plageCourante(contrat, date)
+		def dateDebutFact = profilService.dateDebutFact(contrat, date)
+		def dateFinFact = profilService.dateFinFact(contrat, date)
+		def nbJoursFact = profilService.nbJoursFact(contrat, date)
 
 		// recherche des révisions correspondant à la plage de facturation
-		def revisionDebut = revisionService.revisionCourante(contrat, plage.dateDebut(date))
-		def revisionFin = revisionService.revisionCourante(contrat, plage.dateFin(date))
+		def revisionDebut = revisionService.revisionCourante(contrat, dateDebutFact)
+		def revisionFin = revisionService.revisionCourante(contrat, dateFinFact)
+		
+		// cas 4 : aucune revision courante, seulement la révision active
+		if (!revisionDebut && !revisionFin) {
+			println "cas 4"
+			loyer.valeur = contrat.revisionActive.montantLoyer * (dateFinFact - dateDebutFact + 1) / nbJoursFact
+			loyer.description = "Montant mensuel (à régulariser lorsque l'indice INSEE sera connu) HT"
+			loyer.aReguler = true
+		}
 		
 		// cas 3 : plage à cheval sur deux révisions mais seconde révision non définie
-		if (!revisionFin && !revisionDebut) {
+		else if (!revisionFin) {
 			println "cas 3"
-			loyer.valeur = revisionDebut.montantLoyer
+			loyer.valeur = revisionDebut.montantLoyer * (dateFinFact - dateDebutFact + 1) / nbJoursFact
 			loyer.description = "Montant mensuel (à régulariser lorsque l'indice INSEE sera connu) HT"
 			loyer.aReguler = true
 		}
@@ -50,7 +57,7 @@ class FacturationService {
 		// cas 1 : plage inclue dans une seule révision, cas normal
 		else if (revisionDebut.id == revisionFin.id) {
 			println "cas 1"
-			loyer.valeur = revisionDebut.montantLoyer
+			loyer.valeur = revisionDebut.montantLoyer * (dateFinFact - dateDebutFact + 1) / nbJoursFact
 			loyer.description = "Montant mensuel HT"
 		}
 
@@ -58,14 +65,13 @@ class FacturationService {
 		else if (revisionDebut.id != revisionFin.id) {
 			println "cas 2"
 			
-			def nbJourTotal = plage.dateFin(date) - plage.dateDebut(date) + 1
-			def nbJour1 = revisionDebut.dateFin - plage.dateDebut(date) + 1
-			def nbJour2 = plage.dateFin(date) - revisionFin.dateDebut + 1
+			def nbJour1 = revisionDebut.dateFin - dateDebutFact + 1
+			def nbJour2 = dateFinFact - revisionFin.dateDebut + 1
 			
-			def loyer1 = revisionDebut.montantLoyer * nbJour1 / nbJourTotal
-			def loyer2 = revisionFin.montantLoyer * nbJour2 / nbJourTotal
+			def loyer1 = revisionDebut.montantLoyer * nbJour1 / nbJoursFact
+			def loyer2 = revisionFin.montantLoyer * nbJour2 / nbJoursFact
 			loyer.valeur = loyer1 + loyer2
-			loyer.description = "Montant mensuel (révisé au " + Date.format(revisionFin.dateDebut, "dd/MM/yyyy") + " HT"
+			loyer.description = "Montant mensuel (révisé au " + revisionFin.dateDebut.format("dd/MM/yyyy") + ") HT"
 		}
 		
 		// cas anormal
@@ -82,12 +88,11 @@ class FacturationService {
 		def charges = new Facturable(nom: "charges")
 		
 		// recherche de la plage de facturation correspondant à la date de facturation
-		def plage = profilService.plageCourante(contrat, date)
-
-		// recherche des révisions correspondant à la plage de facturation
-		def revisionDebut = revisionService.revisionCourante(contrat, plage.dateDebut(date))
+		def dateDebutFact = profilService.dateDebutFact(contrat, date)
+		def dateFinFact = profilService.dateFinFact(contrat, date)
+		def nbJoursFact = profilService.nbJoursFact(contrat, date)
 		
-		charges.valeur = revisionDebut.montantCharges
+		charges.valeur = contrat.montantCharges * (dateFinFact - dateDebutFact + 1) / nbJoursFact
 		charges.description = "Provisions sur charges HT"
 		
 		charges.save()

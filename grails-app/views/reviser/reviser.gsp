@@ -39,7 +39,6 @@
 				<g:form controller="reviser" action="sauver" id="${revision?.id}" role="form">
 	  				<g:hiddenField name="contrat" value="${revision?.contrat?.id}" />
 	  				<g:hiddenField name="montantLoyer" value="${formatNumber(number: revision?.montantLoyer)}" />
-	  				<g:hiddenField name="montantCharges" value="${formatNumber(number: revision?.montantCharges)}" />
 	  				
 					<div class="row form-row ${hasErrors(bean: revision, field: 'dateDebut', 'error')} required">
 						<div class="col-sm-2 form-label">

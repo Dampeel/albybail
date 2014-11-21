@@ -1,9 +1,9 @@
 package albybail
 
-class Edition {
+class Edition implements Comparable {
 	
 	String		nom
-	Date		dateEdition
+	Date		date
 	
 	// Elements recopies sur les autres objets
 	String		dateFacture
@@ -28,4 +28,16 @@ class Edition {
 		nomTotal			blank: false, size: 3..50
 		total				min: 0.0, scale: 2
     }
+	
+	static mapping = {
+		sort "nom"
+	}
+	
+	String toString() {
+		return nom
+	}
+	
+	int compareTo(obj) {
+		nom.compareTo(obj.nom)
+	}
 }

@@ -70,19 +70,6 @@
 					</div>
 					</g:if>
 				
-					<g:if test="${revisionInstance?.montantCharges}">
-					<div class="row show-row">
-	    				<div class="show-label col-sm-2">
-							<g:message code="revision.montantCharges.label" default="Montant Charges" />
-						</div>
-						<div class="show-value col-sm-10">
-						
-							<g:fieldValue bean="${revisionInstance}" field="montantCharges"/>
-						
-						</div>
-					</div>
-					</g:if>
-				
 					<g:if test="${revisionInstance?.remarques}">
 					<div class="row show-row">
 	    				<div class="show-label col-sm-2">

@@ -1,6 +1,6 @@
 package albybail
 
-class Facturable {
+class Facturable implements Comparable {
 	
 	Date		date		= new Date()
 	String		nom
@@ -15,6 +15,14 @@ class Facturable {
     static constraints = {
 		nom			blank: false, size: 3..100
 		valeur		nullable: true, min: 0.0, scale: 2
-		description	blank: false, size: 3..50
+		description	blank: false, size: 3..100
     }
+	
+	static mapping = {
+		sort "date"
+	}
+	
+	int compareTo(obj) {
+		date.compareTo(obj.date)
+	}
 }

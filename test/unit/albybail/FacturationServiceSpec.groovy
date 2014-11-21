@@ -2,6 +2,9 @@ package albybail
 
 import grails.test.mixin.Mock
 import grails.test.mixin.TestFor
+
+import java.math.MathContext
+
 import spock.lang.Specification
 
 @TestFor(FacturationService)
@@ -31,12 +34,12 @@ class FacturationServiceSpec extends Specification {
 		null == contrat.facturables?.size()
 	}
 	
-	def "facture contrat avec révision (cas normal)"() {
+	def "facture contrat avec révisions"() {
 		
 		def contrat = new Contrat(
 			nom:			"Contrat",
-			dateDebut: 		Date.parse("dd/MM/yyyy", "15/06/2013"),
-			dateFin: 		Date.parse("dd/MM/yyyy", "15/06/2022"),
+			dateDebut: 		Date.parse("dd/MM/yyyy", "16/06/2013"),
+			dateFin: 		Date.parse("dd/MM/yyyy", "16/06/2022"),
 			dureeRevision:	1,
 			chezNotaire:	false,
 			estTermine:		false,
@@ -46,65 +49,83 @@ class FacturationServiceSpec extends Specification {
 			profil:			Profil.findByNom("mensuel")
 		).addToLocaux(Local.first()).save()
 			
-		def revision = new Revision(
-			dateDebut: 		Date.parse("dd/MM/yyyy", "15/06/2013"),
-			dateFin: 		Date.parse("dd/MM/yyyy", "15/06/2014"),
+		def revision1 = new Revision(
+			dateDebut: 		Date.parse("dd/MM/yyyy", "16/06/2013"),
+			dateFin: 		Date.parse("dd/MM/yyyy", "16/06/2014"),
 			montantLoyer:	1100.00,
-			montantCharges:	100.00,
 			indice:			100,
 			contrat:		contrat
 		).save()
-		
-		contrat.revisionActive = revision
-		contrat.save()
-		
-		Date date = Date.parse("dd/MM/yyyy", "01/01/2014")
-		
-		def facturables = service.creerFacturables(contrat, date)
-		
-		expect:
-		
-		1100 == facturables[0].valeur
-		100 == facturables[1].valeur
-		2 == contrat.facturables?.size()
-	}
-	
-	def "facture contrat sans révision courante (cas normal)"() {
-		
-		def contrat = new Contrat(
-			nom:			"Contrat",
-			dateDebut: 		Date.parse("dd/MM/yyyy", "15/06/2013"),
-			dateFin: 		Date.parse("dd/MM/yyyy", "15/06/2022"),
-			dureeRevision:	1,
-			chezNotaire:	false,
-			estTermine:		false,
-			montantLoyer:	1100.00,
-			montantCharges:	100.00,
-			locataire:		Locataire.first(),
-			profil:			Profil.findByNom("mensuel")
-		).addToLocaux(Local.first()).save()
 			
-		def revision = new Revision(
-			dateDebut: 		Date.parse("dd/MM/yyyy", "15/06/2013"),
-			dateFin: 		Date.parse("dd/MM/yyyy", "15/06/2014"),
-			montantLoyer:	1100.00,
-			montantCharges:	100.00,
+		def revision2 = new Revision(
+			dateDebut: 		Date.parse("dd/MM/yyyy", "17/06/2014"),
+			dateFin: 		Date.parse("dd/MM/yyyy", "31/06/2015"),
+			montantLoyer:	1200.00,
+			indice:			100,
+			contrat:		contrat
+		).save()
+			
+		def revision3 = new Revision(
+			dateDebut: 		Date.parse("dd/MM/yyyy", "01/07/2015"),
+			dateFin: 		Date.parse("dd/MM/yyyy", "29/06/2016"),
+			montantLoyer:	1300.00,
+			indice:			100,
+			contrat:		contrat
+		).save()
+			
+		def revision4 = new Revision(
+			dateDebut: 		Date.parse("dd/MM/yyyy", "30/06/2016"),
+			dateFin: 		Date.parse("dd/MM/yyyy", "01/06/2017"),
+			montantLoyer:	1400.00,
 			indice:			100,
 			contrat:		contrat
 		).save()
 		
-		contrat.revisionActive = revision
+		contrat.revisionActive = revision4
 		contrat.save()
 		
-		Date date = Date.parse("dd/MM/yyyy", "01/08/2014")
+		Date date1 = Date.parse("dd/MM/yyyy", "01/06/2013") // premier mois rev1
+		Date date2 = Date.parse("dd/MM/yyyy", "31/12/2013") // milieu rev1
+		Date date3 = Date.parse("dd/MM/yyyy", "22/05/2014") // dernier mois entier rev1
 		
-		def facturables = service.creerFacturables(contrat, date)
+		Date date4 = Date.parse("dd/MM/yyyy", "01/06/2014") // transition rev1 rev2
+		
+		Date date5 = Date.parse("dd/MM/yyyy", "01/07/2014") // premier mois entier rev2
+		Date date6 = Date.parse("dd/MM/yyyy", "31/01/2015") // milieu rev2
+		Date date7 = Date.parse("dd/MM/yyyy", "15/05/2015") // dernier mois entier rev2
+		
+		Date date8 = Date.parse("dd/MM/yyyy", "08/06/2015") // transition rev2 rev3
+		Date date9 = Date.parse("dd/MM/yyyy", "03/07/2015") // transition rev2 rev3
+		
+		Date date10 = Date.parse("dd/MM/yyyy", "08/06/2016") // transition rev3 rev4
+		Date date11 = Date.parse("dd/MM/yyyy", "03/07/2016") // transition rev3 rev4
+		
+		Date date12 = Date.parse("dd/MM/yyyy", "30/06/2017") // dernier mois rev4
+		
+		Date date19 = Date.parse("dd/MM/yyyy", "30/04/2018") // apres rev4
+		Date date20 = Date.parse("dd/MM/yyyy", "12/06/2022") // dernier mois du contrat
 		
 		expect:
 		
-		1100 == facturables[0].valeur
-		100 == facturables[1].valeur
-		2 == contrat.facturables?.size()
+		550 == service.calculLoyer(contrat, date1).valeur
+		1100 == service.calculLoyer(contrat, date2).valeur
+		1100 == service.calculLoyer(contrat, date3).valeur
+		1146.67 == service.calculLoyer(contrat, date4).valeur
+		1200 == service.calculLoyer(contrat, date5).valeur
+		1200 == service.calculLoyer(contrat, date6).valeur
+		1200 == service.calculLoyer(contrat, date7).valeur
+		1200 == service.calculLoyer(contrat, date8).valeur
+		1300 == service.calculLoyer(contrat, date9).valeur
+		1303.33 == service.calculLoyer(contrat, date10).valeur
+		1400 == service.calculLoyer(contrat, date11).valeur
+		1400 == service.calculLoyer(contrat, date12).valeur
+		
+		1400 == service.calculLoyer(contrat, date19).valeur
+		746.67 == service.calculLoyer(contrat, date20).valeur
+		
+		50 == service.calculCharges(contrat, date1).valeur
+		100 == service.calculCharges(contrat, date9).valeur
+		53.33 == service.calculCharges(contrat, date20).valeur
 	}
 	
     def setup() {

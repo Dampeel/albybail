@@ -20,13 +20,16 @@ class RevisionService {
 		
 		// récupération des données du contrat
 		def dateDebut = contrat.dateDebut
-		def dateFin = contrat.dateDebut
+		def dateFin
 		def montantLoyer = contrat.montantLoyer
-		def montantCharges = contrat.montantCharges
 		
-		// calcul de la date de prochaine révision
+		// calcul de la date de fin de la révision
 		use(TimeCategory) {
-			dateFin += contrat.dureeRevision.year
+			dateFin = contrat.dateDebut + contrat.dureeRevision.year
+			println "durée révision = " + contrat.dureeRevision.year
+		}
+		if (dateFin.after(contrat.dateFin)) {
+			dateFin = contrat.dateFin
 		}
 		
 		// récupération de l'indice applicable
@@ -37,7 +40,6 @@ class RevisionService {
 			dateDebut:		dateDebut,
 			dateFin:		dateFin,
 			montantLoyer:	montantLoyer,
-			montantCharges:	montantCharges,
 			indice:			indice,
 			contrat:		contrat
 		)
@@ -56,6 +58,10 @@ class RevisionService {
 		use(TimeCategory) {
 			dateDebut = ancienneRevision.dateFin + 1.day
 			dateFin = dateDebut + contrat.dureeRevision.year
+			println "durée révision = " + contrat.dureeRevision.year
+		}
+		if (dateFin.after(contrat.dateFin)) {
+			dateFin = contrat.dateFin
 		}
 		
 		// création de la révision
@@ -63,7 +69,6 @@ class RevisionService {
 			dateDebut:		dateDebut,
 			dateFin:		dateFin,
 			montantLoyer:	ancienneRevision.montantLoyer,
-			montantCharges:	ancienneRevision.montantCharges,
 			indice:			ancienneRevision.indice,
 			contrat:		contrat
 		)
