@@ -1,28 +1,29 @@
 package albybail
 
-class Facturable implements Comparable {
+class Facturable {
 	
 	Date		date		= new Date()
-	String		nom
+	String		categorie
 	BigDecimal	valeur
 	String		description
 	Boolean		aReguler 	= false
+	Boolean		aEditer		= true
 
 	Contrat		contrat
 	
 	static belongsTo = Contrat
 
     static constraints = {
-		nom			blank: false, size: 3..100
+		categorie	blank: false, size: 3..100
 		valeur		nullable: true, min: 0.0, scale: 2
-		description	blank: false, size: 3..100
+		description	blank: false, size: 3..200
     }
 	
 	static mapping = {
-		sort "date"
+		sort date:"desc"
 	}
 	
-	int compareTo(obj) {
-		date.compareTo(obj.date)
+	String toString() {
+		date.month + " - " + description
 	}
 }

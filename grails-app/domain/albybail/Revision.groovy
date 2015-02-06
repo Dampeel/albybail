@@ -1,6 +1,6 @@
 package albybail
 
-class Revision implements Comparable {
+class Revision {
 	
 	Date		dateDebut
 	Date		dateFin
@@ -20,14 +20,14 @@ class Revision implements Comparable {
     }
 	
 	static mapping = {
-		sort "dateDebut"
+		sort dateDebut:"desc"
 	} 
 	
 	String toString() {
-		return "Révision du " + dateDebut.format("dd/MM/yyyy") + " au " + dateFin.format("dd/MM/yyyy")
+		"Révision du " + dateDebut.format("dd/MM/yyyy") + " au " + dateFin.format("dd/MM/yyyy")
 	}
 	
-	int compareTo(obj) {
-		dateDebut.compareTo(obj.dateDebut)
+	boolean equals(obj) {
+		dateDebut == obj.dateDebut && dateFin == obj.dateFin && contrat == obj.contrat
 	}
 }

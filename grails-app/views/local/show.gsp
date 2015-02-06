@@ -70,11 +70,11 @@
 					</div>
 					<div class="show-value col-sm-10">
 						<g:each in="${localInstance.contrats}" var="c">
-						<g:link controller="contrat" action="show" id="${c.id}">${c?.encodeAsHTML()}</g:link>
+						<g:link controller="contrat" action="show" id="${c.id}">${c?.encodeAsHTML()}</g:link><br />
 						</g:each>
 					</div>
 				</div>
-				</g:if>
+				</g:if><<
 			</div>
 		</div>
 	</body>

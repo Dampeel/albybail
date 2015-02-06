@@ -19,7 +19,6 @@ class FacturerController {
 		facturationService.creerFacturables(contrat, dateFacturation)
 		
 		def facturables = contrat.facturables
-		println facturables
 		
 		return [facturables: facturables]
 	}

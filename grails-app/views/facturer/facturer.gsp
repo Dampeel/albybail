@@ -31,15 +31,11 @@
 						<thead>
 							<tr>
 							
-								<g:sortableColumn property="dateFin" title="${message(code: 'facturable.dateFin.label', default: 'Date Fin')}" />
-							
-								<g:sortableColumn property="valeur" title="${message(code: 'facturable.valeur.label', default: 'Valeur')}" />
+								<g:sortableColumn property="date" title="${message(code: 'facturable.date.label', default: 'Date')}" />
 							
 								<g:sortableColumn property="description" title="${message(code: 'facturable.description.label', default: 'Description')}" />
 							
-								<th><g:message code="facturable.contrat.label" default="Contrat" /></th>
-							
-								<g:sortableColumn property="dateDebut" title="${message(code: 'facturable.dateDebut.label', default: 'Date Debut')}" />
+								<g:sortableColumn property="valeur" title="${message(code: 'facturable.valeur.label', default: 'Valeur')}" />
 							
 							</tr>
 						</thead>
@@ -48,14 +44,12 @@
 						<g:each in="${facturables}" status="i" var="facturable">
 							<tr>
 							
-								<td><g:link action="show" id="${facturable.id}">${fieldValue(bean: facturable, field: "description")}</g:link></td>
+								<td><g:link action="show" id="${facturable.id}"><g:formatDate date="${facturable.date}" type="date" style="MEDIUM" /></g:link></td>
 							
-								<td>${fieldValue(bean: facturable, field: "valeur")}</td>
+								<td>${fieldValue(bean: facturable, field: "description")}</td>
 							
-								<td>${fieldValue(bean: facturable, field: "contrat")}</td>
-							
-								<td><g:formatDate date="${facturable.date}" /></td>
-							
+								<td><g:formatNumber number="${facturable.valeur}" type="currency" currencyCode="EUR" /></td>
+								
 							</tr>
 						</g:each>
 						</tbody>

@@ -1,6 +1,6 @@
 package albybail
 
-class Edition implements Comparable {
+class Edition {
 	
 	String		nom
 	Date		date
@@ -34,10 +34,6 @@ class Edition implements Comparable {
 	}
 	
 	String toString() {
-		return nom
-	}
-	
-	int compareTo(obj) {
-		nom.compareTo(obj.nom)
+		nom
 	}
 }

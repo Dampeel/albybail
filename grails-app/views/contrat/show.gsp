@@ -41,6 +41,30 @@
 				</div>
 				</g:if>
 			
+				<g:if test="${contratInstance?.locataire}">
+				<div class="row show-row">
+    				<div class="show-label col-sm-2">
+						<g:message code="contrat.locataire.label" default="Locataire" />
+					</div>
+					<div class="show-value col-sm-10">
+						<g:link controller="locataire" action="show" id="${contratInstance?.locataire?.id}">${contratInstance?.locataire?.encodeAsHTML()}</g:link>
+					</div>
+				</div>
+				</g:if>
+			
+				<g:if test="${contratInstance?.locaux}">
+				<div class="row show-row">
+    				<div class="show-label col-sm-2">
+						<g:message code="contrat.locaux.label" default="Locaux" />
+					</div>
+					<div class="show-value col-sm-10">
+						<g:each in="${contratInstance.locaux}" var="l">
+						<g:link controller="local" action="show" id="${l.id}">${l?.encodeAsHTML()}</g:link><br />
+						</g:each>
+					</div>
+				</div>
+				</g:if>
+			
 				<g:if test="${contratInstance?.dateDebut}">
 				<div class="row show-row">
     				<div class="show-label col-sm-2">
@@ -85,17 +109,6 @@
 				</div>
 				</g:if>
 			
-				<g:if test="${contratInstance?.revisionActive}">
-				<div class="row show-row">
-    				<div class="show-label col-sm-2">
-						<g:message code="contrat.revisionActive.label" default="Revision Active" />
-					</div>
-					<div class="show-value col-sm-10">
-						<g:link controller="revision" action="show" id="${contratInstance?.revisionActive?.id}">${contratInstance?.revisionActive?.encodeAsHTML()}</g:link>
-					</div>
-				</div>
-				</g:if>
-			
 				<g:if test="${contratInstance?.dureeRevision}">
 				<div class="row show-row">
     				<div class="show-label col-sm-2">
@@ -107,37 +120,24 @@
 				</div>
 				</g:if>
 			
-				<g:if test="${contratInstance?.locataire}">
-				<div class="row show-row">
-    				<div class="show-label col-sm-2">
-						<g:message code="contrat.locataire.label" default="Locataire" />
-					</div>
-					<div class="show-value col-sm-10">
-						<g:link controller="locataire" action="show" id="${contratInstance?.locataire?.id}">${contratInstance?.locataire?.encodeAsHTML()}</g:link>
-					</div>
-				</div>
-				</g:if>
-			
-				<g:if test="${contratInstance?.locaux}">
-				<div class="row show-row">
-    				<div class="show-label col-sm-2">
-						<g:message code="contrat.locaux.label" default="Locaux" />
-					</div>
-					<div class="show-value col-sm-10">
-						<g:each in="${contratInstance.locaux}" var="l">
-						<g:link controller="local" action="show" id="${l.id}">${l?.encodeAsHTML()}</g:link><br />
-						</g:each>
-					</div>
-				</div>
-				</g:if>
-			
 				<g:if test="${contratInstance?.profil}">
 				<div class="row show-row">
     				<div class="show-label col-sm-2">
 						<g:message code="contrat.profil.label" default="Profil" />
 					</div>
 					<div class="show-value col-sm-10">
-						<g:link controller="profil" action="show" id="${contratInstance?.profil?.id}">${contratInstance?.profil?.encodeAsHTML()}</g:link>
+						<g:fieldValue bean="${contratInstance}" field="profil"/>
+					</div>
+				</div>
+				</g:if>
+			
+				<g:if test="${contratInstance?.revisionActive}">
+				<div class="row show-row">
+    				<div class="show-label col-sm-2">
+						<g:message code="contrat.revisionActive.label" default="Revision Active" />
+					</div>
+					<div class="show-value col-sm-10">
+						<g:link controller="revision" action="show" id="${contratInstance?.revisionActive?.id}">${contratInstance?.revisionActive?.encodeAsHTML()}</g:link>
 					</div>
 				</div>
 				</g:if>
@@ -183,9 +183,20 @@
 						<g:message code="contrat.remarques.label" default="Remarques" />
 					</div>
 					<div class="show-value col-sm-10">
-					
 						<g:fieldValue bean="${contratInstance}" field="remarques"/>
-					
+					</div>
+				</div>
+				</g:if>
+			
+				<g:if test="${contratInstance?.facturables}">
+				<div class="row show-row">
+    				<div class="show-label col-sm-2">
+						<g:message code="contrat.facturables.label" default="Facturables" />
+					</div>
+					<div class="show-value col-sm-10">
+						<g:each in="${contratInstance?.facturables}" var="f">
+						<g:link controller="facturable" action="show" id="${f.id}">${f?.encodeAsHTML()}</g:link><br />
+						</g:each>
 					</div>
 				</div>
 				</g:if>

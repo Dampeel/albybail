@@ -16,13 +16,9 @@ class LigneEdition {
 	
 	static mapping = {
 		sort "description"
-	} 
-	
-	String toString() {
-		return description
 	}
 	
-	int compareTo(obj) {
-		description.compareTo(obj.description)
+	String toString() {
+		description
 	}
 }

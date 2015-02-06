@@ -1,11 +1,9 @@
 package albybail
 
-class Batiment implements Comparable {
+class Batiment {
 	
 	String		nom
 	String		adresse
-	
-	SortedSet	locaux
 
 	static hasMany = [ locaux: Local ]
 	
@@ -15,14 +13,11 @@ class Batiment implements Comparable {
     }
 	
 	static mapping = {
-		sort "nom"
+		sort	"nom"
+		locaux	sort:"nom"
 	}
 	
 	String toString() {
-		return nom
-	}
-	
-	int compareTo(obj) {
-		nom.compareTo(obj.nom)
+		nom
 	}
 }

@@ -48,7 +48,7 @@ class FacturationServiceSpec extends Specification {
 			locataire:		Locataire.first(),
 			profil:			Profil.findByNom("mensuel")
 		).addToLocaux(Local.first()).save()
-			
+		
 		def revision1 = new Revision(
 			dateDebut: 		Date.parse("dd/MM/yyyy", "16/06/2013"),
 			dateFin: 		Date.parse("dd/MM/yyyy", "16/06/2014"),
@@ -56,7 +56,7 @@ class FacturationServiceSpec extends Specification {
 			indice:			100,
 			contrat:		contrat
 		).save()
-			
+
 		def revision2 = new Revision(
 			dateDebut: 		Date.parse("dd/MM/yyyy", "17/06/2014"),
 			dateFin: 		Date.parse("dd/MM/yyyy", "31/06/2015"),

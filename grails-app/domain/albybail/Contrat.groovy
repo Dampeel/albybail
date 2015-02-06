@@ -1,6 +1,6 @@
 package albybail
 
-class Contrat implements Comparable {
+class Contrat {
 	
 	String		nom
 	Date		dateDebut		= new Date()
@@ -15,10 +15,6 @@ class Contrat implements Comparable {
 	Locataire	locataire
 	Revision	revisionActive
 	Profil		profil
-	SortedSet	locaux
-	SortedSet	revisions
-	SortedSet	facturables
-	SortedSet	editions
 	
 	static hasMany = [
 		locaux: 		Local,
@@ -27,7 +23,7 @@ class Contrat implements Comparable {
 		editions:		Edition
 	]
 	
-    static constraints = {
+	static constraints = {
 		nom				blank: false, size: 3..100
 		dateDebut		validator: { val -> val?.before(new Date()) }
 		dateFin			validator: { val, obj -> val?.after(obj.dateDebut) }
@@ -35,17 +31,19 @@ class Contrat implements Comparable {
 		montantCharges	min: 0.0, scale: 2
 		remarques		blank: true, nullable: true, sizeMax: 500
 		revisionActive	nullable: true
-    }
-	
-	static mapping = {
-		sort "nom"
-	} 
-	
-	String toString() {
-		return nom
 	}
 	
-	int compareTo(obj) {
-		nom.compareTo(obj.nom)
+	static mapping = {
+		sort		"nom"
+		revisions	sort: "dateDebut", order: "desc"
+		facturables	sort: "date", order: "desc"
+	}
+	
+	String toString() {
+		nom
+	}
+	
+	boolean equals(obj) {
+		nom == obj.nom && locataire == obj.locataire && locaux == obj.locaux && dateDebut == obj.dateDebut && dateFin == obj.dateFin
 	}
 }

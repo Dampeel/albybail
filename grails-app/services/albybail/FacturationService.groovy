@@ -18,16 +18,18 @@ class FacturationService {
 		
 		def loyer = calculLoyer(contrat, dateFact)
 		def charges = calculCharges(contrat, dateFact)
-		def liste = [loyer, charges]
 		
 		contrat.addToFacturables(loyer)
 		contrat.addToFacturables(charges)
+		
+		if (contrat.hasErrors()) { prinln "errors" }
+		
 		contrat.save(flush: true)
 	}
 	
 	Facturable calculLoyer(Contrat contrat, Date date) {
 		
-		def loyer = new Facturable(nom: "loyer")
+		def loyer = new Facturable(categorie: "loyer")
 		
 		// recherche de la plage de facturation correspondant à la date de facturation
 		def dateDebutFact = profilService.dateDebutFact(contrat, date)
@@ -55,14 +57,14 @@ class FacturationService {
 		}
 
 		// cas 1 : plage inclue dans une seule révision, cas normal
-		else if (revisionDebut.id == revisionFin.id) {
+		else if (revisionDebut.equals(revisionFin)) {
 			println "cas 1"
 			loyer.valeur = revisionDebut.montantLoyer * (dateFinFact - dateDebutFact + 1) / nbJoursFact
 			loyer.description = "Montant mensuel HT"
 		}
 
 		// cas 2 : plage à cheval sur deux révisions
-		else if (revisionDebut.id != revisionFin.id) {
+		else if (!revisionDebut.equals(revisionFin)) {
 			println "cas 2"
 			
 			def nbJour1 = revisionDebut.dateFin - dateDebutFact + 1
@@ -79,13 +81,16 @@ class FacturationService {
 			println "cas non prévu"
 		}
 		
+		
+		if (loyer.hasErrors()) { prinln "errors loyer" }
+		
 		loyer.save()
 		
 		return loyer
 	}
 	
 	Facturable calculCharges(Contrat contrat, Date date) {
-		def charges = new Facturable(nom: "charges")
+		def charges = new Facturable(categorie: "charges")
 		
 		// recherche de la plage de facturation correspondant à la date de facturation
 		def dateDebutFact = profilService.dateDebutFact(contrat, date)
